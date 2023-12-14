@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioNetCore.Domain", "src\DesafioNetCore.Entities\DesafioNetCore.Domain.csproj", "{FD391A98-6E54-4EC3-97ED-442FD501705C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioNetCore.Domain", "src\DesafioNetCore.Domain\DesafioNetCore.Domain.csproj", "{FD391A98-6E54-4EC3-97ED-442FD501705C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesafioNetCore.Infra", "src\DesafioNetCore.Infra\DesafioNetCore.Infra.csproj", "{60EF4A2F-648D-4F50-85C9-87A347C86750}"
 EndProject
