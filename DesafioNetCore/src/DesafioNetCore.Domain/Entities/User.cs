@@ -11,6 +11,6 @@ namespace DesafioNetCore.Domain.Entities
         public string CpfCnpj { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
 
-        public EAccessPriority eAccessPriority { get; set; } = EAccessPriority.Administrator;
+        public EAccessPriority EAccessPriority { get; set; } = EAccessPriority.Administrator;
     }
 }
