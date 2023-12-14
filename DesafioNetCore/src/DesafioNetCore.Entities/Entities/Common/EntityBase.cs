@@ -1,4 +1,4 @@
-﻿namespace DesafioNetCore.Entities;
+﻿namespace DesafioNetCore.Domain.Entities.Common;
 
 public abstract class EntityBase
 {

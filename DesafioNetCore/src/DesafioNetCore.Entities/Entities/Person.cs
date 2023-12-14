@@ -1,4 +1,6 @@
-﻿namespace DesafioNetCore.Entities
+﻿using DesafioNetCore.Domain.Entities.Common;
+
+namespace DesafioNetCore.Domain.Entities
 {
 
     public class Person : EntityBase
@@ -6,10 +8,10 @@
         public required string Name { get; set; }
         public string Document { get; set; } = string.Empty;
         public required string TownName { get; set; } = string.Empty;
-        public bool Active { get; set; } = true;
-        public bool CanBuy { get; set; } 
+        public bool CanBuy { get; set; }
         public string Observations { get; set; } = string.Empty;
-        public string AlternativeIdentifier { get; set;} = string.Empty;
+        public string AlternativeIdentifier { get; set; } = string.Empty;
+        public bool Active { get; set; } = true;
     }
 }
 
