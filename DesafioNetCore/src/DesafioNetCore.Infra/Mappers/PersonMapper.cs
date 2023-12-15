@@ -8,7 +8,7 @@ public class PersonMapper : IEntityTypeConfiguration<Person>
 {
     public void Configure(EntityTypeBuilder<Person> person)
     {
-        person.ToTable("persons");
+        person.ToTable("person");
         person.HasKey(x => x.Id);
 
         person.Property(x => x.Id).HasColumnName("id");
@@ -18,6 +18,6 @@ public class PersonMapper : IEntityTypeConfiguration<Person>
         person.Property(x => x.CanBuy).HasColumnName("canbuy");
         person.Property(x => x.Observations).HasColumnName("observations");
         person.Property(x => x.AlternativeIdentifier).HasColumnName("alternativeidentifier");
-        person.Property(x => x.Active).HasColumnName("active");
+        person.Property(x => x.Enable).HasColumnName("active");
     }
 }

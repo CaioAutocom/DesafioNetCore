@@ -1,24 +1,24 @@
 ﻿using DesafioNetCore.Domain.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DesafioNetCore.Infra.Mappers;
 
 public class ProdutctMapper : IEntityTypeConfiguration<Product>
 {
-    public void Configure(EntityTypeBuilder<Product> person)
+    public void Configure(EntityTypeBuilder<Product> product)
     {
-        person.ToTable("persons");
-        person.HasKey(x => x.Id);
+        product.ToTable("product");
+        product.HasKey(x => x.Id);
 
-        person.Property(x => x.Id).HasColumnName("id");
-        person.Property(x => x.FullDescription).HasColumnName("fulldescription");
-        person.Property(x => x.Price).HasColumnName("price");
-        person.Property(x => x.Storage).HasColumnName("storage");
-        person.Property(x => x.BarCode).HasColumnName("barcode");
-        person.Property(x => x.CanSell).HasColumnName("cansell");
-        person.Property(x => x.Active).HasColumnName("active");
-        person.Property(x => x.Active).HasColumnName("active");
-        
+        product.Property(x => x.Id).HasColumnName("id");
+        product.Property(x => x.FullDescription).HasColumnName("shortdescription");
+        product.Property(x => x.ShortDescription).HasColumnName("fulldescription");
+        product.Property(x => x.Price).HasColumnName("price");
+        product.Property(x => x.Storage).HasColumnName("storage");
+        product.Property(x => x.BarCode).HasColumnName("barcode");
+        product.Property(x => x.CanSell).HasColumnName("cansell");
+        product.Property(x => x.Active).HasColumnName("active");
+        product.Property(x => x.Acronym).HasColumnName("unit");
     }
 }

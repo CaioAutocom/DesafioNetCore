@@ -11,7 +11,7 @@ namespace DesafioNetCore.Domain.Entities
         public bool CanBuy { get; set; }
         public string Observations { get; set; } = string.Empty;
         public string AlternativeIdentifier { get; set; } = string.Empty;
-        public bool Active { get; set; } = true;
+        public bool Enable { get; set; } = true;
     }
 }
 

@@ -2,9 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace DesafioNetCore.Infra;
-public class AppDbContext : DbContext
+
+public class IdentityContext : DbContext
 {
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
     {
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -15,8 +16,5 @@ public class AppDbContext : DbContext
         modelBuilder.HasDefaultSchema("public");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
-    public DbSet<Person> Persons => Set<Person>();
-    public DbSet<Product> Produtcts => Set<Product>();
-    public DbSet<Unit> Units => Set<Unit>();
-    
+    public DbSet<User> Users => Set<User>();
 }
