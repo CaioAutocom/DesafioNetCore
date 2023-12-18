@@ -19,6 +19,11 @@ public class ProdutctMapper : IEntityTypeConfiguration<Product>
         product.Property(x => x.BarCode).HasColumnName("barcode");
         product.Property(x => x.CanSell).HasColumnName("cansell");
         product.Property(x => x.Active).HasColumnName("active");
-        product.Property(x => x.Acronym).HasColumnName("unit");
+        product.Property(x => x.IdUnit).HasColumnName("acronym").IsRequired();
+
+        product.HasOne(x => x.Unit)
+            .WithMany()
+            .HasForeignKey(x => x.IdUnit)
+            .IsRequired();
     }
 }

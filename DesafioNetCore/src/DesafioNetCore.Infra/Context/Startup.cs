@@ -6,11 +6,12 @@ namespace DesafioNetCore.Infra.Context;
 
 internal static class Startup
 {
-    internal static IServiceCollection AddPgSqlContext(this IServiceCollection services, IConfiguration config)
+    internal static IServiceCollection AddContext(this IServiceCollection services, IConfiguration config)
     {
+        // db context precisa ser iniciado na startup devido a connection string estar presente no appsetting.json
         services.AddDbContext<AppDbContext>(opt =>
         {
-            var strConn = config.GetConnectionString("pgsqlDb");
+            var strConn = config.GetConnectionString("mainConn");
             opt.UseNpgsql(strConn);
         });
 

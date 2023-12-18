@@ -1,6 +1,7 @@
 using DesafioNetCore.Infra;
+using DesafioNetCore.Infra.Repository;
 
-    var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -10,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-
+builder.Services.AddScoped<IUserRespository, UserRepository>();
 
 
 var app = builder.Build();

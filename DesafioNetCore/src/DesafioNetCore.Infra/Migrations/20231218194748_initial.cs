@@ -60,7 +60,7 @@ namespace DesafioNetCore.Infra.Migrations
                     barcode = table.Column<string>(type: "text", nullable: true),
                     cansell = table.Column<bool>(type: "boolean", nullable: false),
                     active = table.Column<bool>(type: "boolean", nullable: false),
-                    unit = table.Column<string>(type: "text", nullable: true),
+                    acronym = table.Column<Guid>(type: "uuid", nullable: false),
                     UnitId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -72,6 +72,13 @@ namespace DesafioNetCore.Infra.Migrations
                         principalSchema: "public",
                         principalTable: "Units",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_product_Units_acronym",
+                        column: x => x.acronym,
+                        principalSchema: "public",
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -79,6 +86,12 @@ namespace DesafioNetCore.Infra.Migrations
                 schema: "public",
                 table: "product",
                 column: "UnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_product_acronym",
+                schema: "public",
+                table: "product",
+                column: "acronym");
         }
 
         /// <inheritdoc />

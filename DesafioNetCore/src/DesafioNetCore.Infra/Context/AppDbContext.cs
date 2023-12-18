@@ -1,4 +1,5 @@
 ﻿using DesafioNetCore.Domain.Entities;
+using DesafioNetCore.Infra.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesafioNetCore.Infra;
@@ -13,7 +14,9 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("public");
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        modelBuilder.ApplyConfiguration(new PersonMapper());
+        modelBuilder.ApplyConfiguration(new ProdutctMapper());
+        
     }
     public DbSet<Person> Persons => Set<Person>();
     public DbSet<Product> Produtcts => Set<Product>();

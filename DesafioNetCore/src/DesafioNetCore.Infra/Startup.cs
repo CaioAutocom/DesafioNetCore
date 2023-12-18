@@ -8,7 +8,7 @@ public static class Startup
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
-        services.AddPgSqlContext(config);
+        services.AddContext(config);
         return services;
     }
 
