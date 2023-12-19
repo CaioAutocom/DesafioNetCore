@@ -1,5 +1,4 @@
 ﻿using DesafioNetCore.Domain.Entities;
-using DesafioNetCore.Infra.Contracts;
 
 namespace DesafioNetCore.Infra.Repository;
 
@@ -15,8 +14,9 @@ public class UserRepository : IUserRespository
     {
         _context.Users.Add(user);
     }
-    public bool Save()
+
+    public IEnumerable<User> GetAll()
     {
-        return _context.SaveChanges() > 0;
+        return _context.Users;
     }
 }

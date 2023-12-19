@@ -1,5 +1,6 @@
-﻿using DesafioNetCore.Domain.Entities;
-using DesafioNetCore.Infra.Repository;
+﻿using DesafioNetCore.Application.Contracts;
+using DesafioNetCore.Domain.Entities;
+using DesafioNetCore.Infra.Repository.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioNetCore.API.Controllers
@@ -8,23 +9,22 @@ namespace DesafioNetCore.API.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {   
-        private readonly  IUserRespository _userRespository;
+        private readonly IProductService _userService;
 
-        public UserController(IUserRespository userRespository)
+        public UserController(IProductService userService)
         {
-            _userRespository = userRespository;
+            _userService = userService;
         }
 
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IEnumerable<User> GetAll()
         {
-            return new List<User>();
+            return _userService.GetAll();
         }
         [HttpPost]
         public void Add(User user)
         {
-            _userRespository.Add(user);
-            _userRespository.Save();
+            _userService.Add(user);
         }
     }
 }

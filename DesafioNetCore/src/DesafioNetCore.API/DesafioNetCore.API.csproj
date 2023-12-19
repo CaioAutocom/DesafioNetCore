@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DesafioNetCore.Application\DesafioNetCore.Application.csproj" />
     <ProjectReference Include="..\DesafioNetCore.Infra\DesafioNetCore.Infra.csproj" />
   </ItemGroup>
 

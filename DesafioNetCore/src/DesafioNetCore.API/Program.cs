@@ -1,5 +1,7 @@
+using DesafioNetCore.Application;
 using DesafioNetCore.Infra;
 using DesafioNetCore.Infra.Repository;
+using DesafioNetCore.Infra.Repository.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddScoped<IUserRespository, UserRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<DesafioNetCore.Application.Contracts.IProductService, UserService>();
 
 
 var app = builder.Build();

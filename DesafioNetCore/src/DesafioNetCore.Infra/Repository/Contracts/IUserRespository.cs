@@ -1,10 +1,9 @@
 ﻿using DesafioNetCore.Domain.Entities;
+using DesafioNetCore.Infra.Repository.Contracts;
 
-namespace DesafioNetCore.Infra.Repository
+namespace DesafioNetCore.Infra.Repository;
+
+public interface IUserRespository : IRepositoryBase<User>
 {
-    public interface IUserRespository
-    {
-        void Add(User user);
-        bool Save();
-    }
+
 }
