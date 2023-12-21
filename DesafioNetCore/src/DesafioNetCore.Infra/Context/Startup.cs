@@ -16,10 +16,7 @@ internal static class Startup
         });
 
         services.AddDbContext<IdentityContext>(opt =>
-        {
-            var strConn = config.GetConnectionString("identityConn");
-            opt.UseNpgsql(strConn);
-        });
+                   opt.UseNpgsql(config.GetConnectionString("identityConn")));
 
         return services;
     }

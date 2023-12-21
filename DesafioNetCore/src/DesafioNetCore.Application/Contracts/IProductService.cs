@@ -1,5 +1,7 @@
-﻿namespace DesafioNetCore.Application.Contracts;
+﻿using DesafioNetCore.Domain.Entities;
 
-public interface IProductService
+namespace DesafioNetCore.Application.Contracts;
+
+public interface IProductService : IServiceBase<User>
 {
 }

@@ -1,3 +1,4 @@
+using DesafioNetCore.API.Configuration;
 using DesafioNetCore.Application;
 using DesafioNetCore.Infra;
 using DesafioNetCore.Infra.Repository;
@@ -12,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
-
+builder.Services.AddIdentityConfiguration(builder.Configuration);
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<DesafioNetCore.Application.Contracts.IProductService, UserService>();
 
@@ -27,7 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
