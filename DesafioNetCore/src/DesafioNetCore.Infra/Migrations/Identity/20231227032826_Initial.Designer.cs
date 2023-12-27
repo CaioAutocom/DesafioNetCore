@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DesafioNetCore.Infra.Migrations
+namespace DesafioNetCore.Infra.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20231221195042_Initial")]
+    [Migration("20231227032826_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

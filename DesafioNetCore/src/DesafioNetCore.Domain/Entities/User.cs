@@ -1,5 +1,6 @@
-﻿using DesafioNetCore.Domain.Entities.Common;
+﻿using Microsoft.AspNetCore.Identity;
 using DesafioNetCore.Entities.Enums;
+using DesafioNetCore.Domain.Entities.Common;
 
 namespace DesafioNetCore.Domain.Entities
 {
