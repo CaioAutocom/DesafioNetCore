@@ -76,24 +76,33 @@ namespace DesafioNetCore.API.Controllers.Auth
             var user = await _userManager.FindByEmailAsync(email);
             // claims são permissoes ou dados abertos do usuário
             var claims = await _userManager.GetClaimsAsync(user);
-            var userRoles = await _userManager.GetRolesAsync(user);
+           
+            var identityClaims = await GetUserClaimsAsync(claims, user);
+            var encodedToken = EncodeToken(identityClaims);
 
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-            
-            claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnitEpochDate(DateTime.UtcNow).ToString()));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnitEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64));
+            return GetTokenResponse(encodedToken, user, claims);
 
-            foreach (var userRole in userRoles)
+            // aula M03V07 Emitindo jwt no minuto 14 fala sobre refatoração deste método
+        }
+
+        private UserResponseLogin GetTokenResponse(string encodedToken, IdentityUser user, IList<Claim> claims)
+        {
+            // monta a resposta 
+            return new UserResponseLogin
             {
-                claims.Add(new Claim("role", userRole));
-            }
+                AccessToken = encodedToken,
+                ExpiresIn = TimeSpan.FromHours(_appSettings.ExpireTime).TotalSeconds,
+                UserToken = new UserToken
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Claims = claims.Select(x => new UserClaim { Type = x.Type, Value = x.Value })
+                }
+            };
+        }
 
-
-            var identityClaims = new ClaimsIdentity();
-            identityClaims.AddClaims(claims);
-
+        private string EncodeToken(ClaimsIdentity identityClaims)
+        {
             var tokenhandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
 
@@ -108,23 +117,29 @@ namespace DesafioNetCore.API.Controllers.Auth
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             });
 
-            var encodedToken = tokenhandler.WriteToken(token);
+            return tokenhandler.WriteToken(token);
+        }
 
-            // monta a resposta 
-            var response = new UserResponseLogin
+        private async Task<ClaimsIdentity> GetUserClaimsAsync(ICollection<Claim> claims, IdentityUser user)
+        {
+            var userRoles = await _userManager.GetRolesAsync(user);
+
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, user.Id));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Email, user.Email));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+
+            claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnitEpochDate(DateTime.UtcNow).ToString()));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnitEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64));
+
+            foreach (var userRole in userRoles)
             {
-                AccessToken = encodedToken,
-                ExpiresIn = TimeSpan.FromHours(_appSettings.ExpireTime).TotalSeconds,
-                UserToken = new UserToken
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    Claims = claims.Select(x=> new UserClaim { Type = x.Type, Value = x.Value})
-                }
-            };
+                claims.Add(new Claim("role", userRole));
+            }
 
-            return response;
-            // aula M03V07 Emitindo jwt no minuto 14 fala sobre refatoração deste método
+            var identityClaims = new ClaimsIdentity();
+            identityClaims.AddClaims(claims);
+
+            return identityClaims;
         }
 
         private static long ToUnitEpochDate(DateTime date)
