@@ -1,9 +1,4 @@
-﻿
-using DesafioNetCore.Domain.Entities;
-using DesafioNetCore.Infra;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
+﻿using DesafioNetCore.Infra;
 using Microsoft.AspNetCore.Identity;
 
 

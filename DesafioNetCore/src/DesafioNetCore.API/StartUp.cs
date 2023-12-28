@@ -1,7 +1,7 @@
-﻿using DesafioNetCore.API.Services.Configuration;
-using DesafioNetCore.Domain.Entities;
-using DesafioNetCore.Infra;
-using Microsoft.AspNetCore.Identity;
+﻿
+using DesafioNetCore.API.Services.Configuration;
+using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace DesafioNetCore.API;
 
@@ -9,7 +9,11 @@ public static class StartUp
 {
     public static IServiceCollection AddServices (this IServiceCollection services, IConfiguration config)
     {
+
+        // utiliza as configurações do identity
         services.AddIdentityConfiguration(config);
+        // utiliza as configurações de token
+        services.AddJwtConfiguration(config);
         return services;
     }
 }

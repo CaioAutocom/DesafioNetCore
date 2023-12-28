@@ -14,6 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
+
+// Lembrar de resolver as dependencias de um jeito mais profissional
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<DesafioNetCore.Application.Contracts.IProductService, UserService>();
 
@@ -28,6 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+// Utilizando o Identity para autenticar
 app.UseAuthentication();
 app.UseAuthorization();
 
