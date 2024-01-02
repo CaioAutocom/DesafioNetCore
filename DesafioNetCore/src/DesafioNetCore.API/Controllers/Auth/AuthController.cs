@@ -1,5 +1,6 @@
 ﻿ using DesafioNetCore.API.CQRC;
 using DesafioNetCore.API.Extensions;
+using DesafioNetCore.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -15,12 +16,12 @@ namespace DesafioNetCore.API.Controllers.Auth
     [Route("api")]
     public class AuthController : MainController
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly AppSettings _appSettings;
 
-        public AuthController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+        public AuthController(UserManager<User> userManager,
+            SignInManager<User> signInManager,
             IOptions<AppSettings> appSettings)
         {
             _userManager = userManager;
@@ -33,8 +34,10 @@ namespace DesafioNetCore.API.Controllers.Auth
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var user = new IdentityUser
+            var user = new User
             {
+                Name = registerUser.Name,
+                Document = registerUser.Document,
                 UserName = registerUser.Email,
                 Email = registerUser.Email,
                 EmailConfirmed = true
@@ -116,11 +119,11 @@ namespace DesafioNetCore.API.Controllers.Auth
                 // credenciais
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             });
-
+            
             return tokenhandler.WriteToken(token);
         }
 
-        private async Task<ClaimsIdentity> GetUserClaimsAsync(ICollection<Claim> claims, IdentityUser user)
+        private async Task<ClaimsIdentity> GetUserClaimsAsync(ICollection<Claim> claims, User user)
         {
             var userRoles = await _userManager.GetRolesAsync(user);
 

@@ -1,11 +1,12 @@
 ﻿using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Mappers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DesafioNetCore.Infra;
 
-public class IdentityContext :  IdentityDbContext
+public class IdentityContext :  IdentityDbContext<User>
 {
     public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
     {
@@ -20,6 +21,8 @@ public class IdentityContext :  IdentityDbContext
         modelBuilder.HasDefaultSchema("public");
         modelBuilder.ApplyConfiguration(new UserMapper());
 
+        modelBuilder.Entity<User>()
+            .HasKey(x => x.Id);
         //modelBuilder.Entity<User>().HasData(
         //    new User
         //    {

@@ -16,7 +16,5 @@ public class UserMapper : IEntityTypeConfiguration<User>
         user.Property(x => x.Nickname).HasColumnName("nickname");
         user.Property(x => x.Email).HasColumnName("email");
         user.Property(x => x.Document).HasColumnName("document");
-        user.Property(x => x.Password).HasColumnName("password");
-        user.Property(x => x.AccessPriority).HasColumnName("accesspriority");
     }
 }

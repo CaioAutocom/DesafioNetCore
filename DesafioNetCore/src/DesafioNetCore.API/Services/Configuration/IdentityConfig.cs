@@ -1,4 +1,5 @@
-﻿using DesafioNetCore.Infra;
+﻿using DesafioNetCore.Domain.Entities;
+using DesafioNetCore.Infra;
 using Microsoft.AspNetCore.Identity;
 
 
@@ -8,7 +9,7 @@ namespace DesafioNetCore.API.Services.Configuration
     {
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDefaultIdentity<IdentityUser>() // minha entidade padrão para modelo de controle do identity
+            services.AddDefaultIdentity<User>() // minha entidade padrão para modelo de controle do identity
              .AddRoles<IdentityRole>()
              .AddEntityFrameworkStores<IdentityContext>()
              .AddDefaultTokenProviders();
