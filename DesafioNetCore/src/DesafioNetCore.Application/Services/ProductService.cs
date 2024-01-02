@@ -1,16 +1,17 @@
 ﻿using DesafioNetCore.Application.Contracts;
+using DesafioNetCore.Application.Contracts.Common;
 using DesafioNetCore.Domain.Entities;
 
 namespace DesafioNetCore.Application.Services;
 
 public class ProductService : IProductService
 {
-    public void Add(User entity)
+    public void Add(Product entity)
     {
         throw new NotImplementedException();
     }
 
-    public IEnumerable<User> GetAll()
+    IEnumerable<Product> IServiceBase<Product>.GetAll()
     {
         throw new NotImplementedException();
     }

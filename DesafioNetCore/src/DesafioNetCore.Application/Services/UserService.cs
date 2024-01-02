@@ -4,7 +4,7 @@ using DesafioNetCore.Infra.Repository.Contracts;
 
 namespace DesafioNetCore.Application;
 
-public class UserService : IProductService
+public class UserService : IUserService
 {
     private readonly IUnitOfWork _uow;
 

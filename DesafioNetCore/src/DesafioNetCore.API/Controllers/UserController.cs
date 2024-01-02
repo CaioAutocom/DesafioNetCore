@@ -6,14 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioNetCore.API.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UserController : ControllerBase
     {   
-        private readonly IProductService _userService;
+        private readonly IUserService _userService;
 
-        public UserController(IProductService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }

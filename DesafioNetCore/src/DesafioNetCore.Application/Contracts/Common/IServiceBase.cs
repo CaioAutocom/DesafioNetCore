@@ -1,4 +1,4 @@
-﻿namespace DesafioNetCore.Application.Contracts;
+﻿namespace DesafioNetCore.Application.Contracts.Common;
 
 public interface IServiceBase<T> where T : class
 {

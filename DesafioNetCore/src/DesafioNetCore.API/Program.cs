@@ -1,5 +1,7 @@
 using DesafioNetCore.API;
 using DesafioNetCore.Application;
+using DesafioNetCore.Application.Contracts;
+using DesafioNetCore.Application.Services;
 using DesafioNetCore.Infra;
 using DesafioNetCore.Infra.Repository;
 using DesafioNetCore.Infra.Repository.Contracts;
@@ -17,7 +19,9 @@ builder.Services.AddServices(builder.Configuration);
 
 // Lembrar de resolver as dependencias de um jeito mais profissional
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<DesafioNetCore.Application.Contracts.IProductService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 
 var app = builder.Build();

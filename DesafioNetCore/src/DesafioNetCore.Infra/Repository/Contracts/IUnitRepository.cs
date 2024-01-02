@@ -1,5 +1,7 @@
-﻿namespace DesafioNetCore.Infra.Repository.Contracts;
+﻿using DesafioNetCore.Domain.Entities;
 
-public interface IUnitRepository
+namespace DesafioNetCore.Infra.Repository.Contracts;
+
+public interface IUnitRepository : IRepositoryBase<Unit>
 {
 }
