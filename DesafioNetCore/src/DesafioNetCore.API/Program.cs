@@ -3,6 +3,7 @@ using DesafioNetCore.Application;
 using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Application.Services;
 using DesafioNetCore.Infra;
+using DesafioNetCore.Infra.Migrations;
 using DesafioNetCore.Infra.Repository;
 using DesafioNetCore.Infra.Repository.Contracts;
 
@@ -39,5 +40,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+DbMigrationHelpers.EnsureSeedData(app).Wait();
 
 app.Run();

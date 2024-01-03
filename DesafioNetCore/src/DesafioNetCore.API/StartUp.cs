@@ -1,7 +1,5 @@
 ﻿
 using DesafioNetCore.API.Services.Configuration;
-using Microsoft.Extensions.Configuration;
-using System.Text;
 
 namespace DesafioNetCore.API;
 

@@ -11,5 +11,4 @@ public static class Startup
         services.AddContext(config);
         return services;
     }
-
 }
