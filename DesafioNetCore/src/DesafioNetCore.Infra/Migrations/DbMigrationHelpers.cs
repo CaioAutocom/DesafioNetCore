@@ -42,7 +42,8 @@ public static class DbMigrationHelpers
             IdentityRole role = new ()
             {
                 Id = id,
-                Name = item.ToString()
+                Name = item.ToString().ToUpper(),
+                NormalizedName = item.ToString().ToUpper(),
             };
             identityContext.Roles.Add(role);
         }

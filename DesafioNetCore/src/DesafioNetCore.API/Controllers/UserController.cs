@@ -1,6 +1,5 @@
 ﻿using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Domain.Entities;
-using DesafioNetCore.Infra.Repository.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +15,8 @@ namespace DesafioNetCore.API.Controllers
         {
             _userService = userService;
         }
-
+ 
+        [Authorize(Roles = "ADMINISTRATOR")]
         [HttpGet]
         public IEnumerable<User> GetAll()
         {

@@ -1,4 +1,4 @@
-﻿ using DesafioNetCore.API.CQRC;
+﻿using DesafioNetCore.API.CQRC;
 using DesafioNetCore.API.Extensions;
 using DesafioNetCore.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +12,7 @@ using System.Text;
 
 namespace DesafioNetCore.API.Controllers.Auth
 {
- 
+
     [Route("api")]
     public class AuthController : MainController
     {
@@ -47,6 +47,8 @@ namespace DesafioNetCore.API.Controllers.Auth
 
             if (result.Succeeded)
             {
+                await AddUserRole(user, registerUser.AccessPriority.ToString().ToUpper());
+
                 return CustomResponse(await CreateJwt(registerUser.Email));
             }
 
@@ -57,6 +59,8 @@ namespace DesafioNetCore.API.Controllers.Auth
             return CustomResponse();
 
         }
+
+        private async Task AddUserRole(User user, string role) => await _userManager.AddToRoleAsync(user, role);
 
         [HttpPost("login")]
         public async Task<ActionResult> Login(LoginUserViewModel loginUser)
@@ -79,16 +83,17 @@ namespace DesafioNetCore.API.Controllers.Auth
             var user = await _userManager.FindByEmailAsync(email);
             // claims são permissoes ou dados abertos do usuário
             var claims = await _userManager.GetClaimsAsync(user);
-           
+            var roles = await _userManager.GetRolesAsync(user);
+
             var identityClaims = await GetUserClaimsAsync(claims, user);
             var encodedToken = EncodeToken(identityClaims);
 
-            return GetTokenResponse(encodedToken, user, claims);
+            return GetTokenResponse(encodedToken, user, claims, roles);
 
             // aula M03V07 Emitindo jwt no minuto 14 fala sobre refatoração deste método
         }
 
-        private UserResponseLogin GetTokenResponse(string encodedToken, IdentityUser user, IList<Claim> claims)
+        private UserResponseLogin GetTokenResponse(string encodedToken, IdentityUser user, IList<Claim> claims, IList<string> roles)
         {
             // monta a resposta 
             return new UserResponseLogin
@@ -99,7 +104,8 @@ namespace DesafioNetCore.API.Controllers.Auth
                 {
                     Id = user.Id,
                     Email = user.Email,
-                    Claims = claims.Select(x => new UserClaim { Type = x.Type, Value = x.Value })
+                    //Claims = claims.Select(x => new UserClaim { Type = x.Type, Value = x.Value }),
+                    Roles = roles
                 }
             };
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using DesafioNetCore.Entities.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace DesafioNetCore.API.CQRC;
 
@@ -23,4 +24,6 @@ public class RegisterUserViewModel
     
     [Compare("Password", ErrorMessage= "As senhas não conferem.")]
     public string ConfirmPassword { get; set; } = string.Empty;
+    [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+    public EAccessPriority AccessPriority { get; set; }
 }
