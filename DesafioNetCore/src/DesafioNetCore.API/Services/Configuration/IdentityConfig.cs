@@ -14,6 +14,17 @@ namespace DesafioNetCore.API.Services.Configuration
              .AddEntityFrameworkStores<IdentityContext>()
              .AddDefaultTokenProviders();
 
+            // adicionado só para testar mais fácil, remover na versão final
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequiredUniqueChars = 0;
+            });
             return services;
         }
     }
