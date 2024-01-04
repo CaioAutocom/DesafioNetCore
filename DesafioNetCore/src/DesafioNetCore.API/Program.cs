@@ -24,7 +24,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
-
+builder.Services.AddAutoMapper(typeof(StartUp));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

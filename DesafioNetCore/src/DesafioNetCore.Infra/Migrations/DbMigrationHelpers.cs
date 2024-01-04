@@ -39,7 +39,7 @@ public static class DbMigrationHelpers
         foreach (var item in Enum.GetValues(typeof(EAccessPriority)))
         {
             var id = Guid.NewGuid().ToString();
-            IdentityRole role = new ()
+            IdentityRole role = new()
             {
                 Id = id,
                 Name = item.ToString().ToUpper(),

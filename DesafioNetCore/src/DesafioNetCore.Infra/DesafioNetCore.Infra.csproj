@@ -25,9 +25,4 @@
     <ProjectReference Include="..\DesafioNetCore.Domain\DesafioNetCore.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\AppDb\" />
-    <Folder Include="Migrations\Identity\" />
-  </ItemGroup>
-
 </Project>

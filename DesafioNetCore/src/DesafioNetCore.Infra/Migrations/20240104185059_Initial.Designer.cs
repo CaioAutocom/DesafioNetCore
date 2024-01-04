@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DesafioNetCore.Infra.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240102204015_Initial")]
+    [Migration("20240104185059_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

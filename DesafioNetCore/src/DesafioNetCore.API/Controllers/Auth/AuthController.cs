@@ -1,4 +1,5 @@
 ﻿using DesafioNetCore.API.CQRC;
+using DesafioNetCore.API.CQRC.Request.Register;
 using DesafioNetCore.API.Extensions;
 using DesafioNetCore.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -30,7 +31,7 @@ namespace DesafioNetCore.API.Controllers.Auth
         }
 
         [HttpPost("new-account")]
-        public async Task<ActionResult> Register(RegisterUserViewModel registerUser)
+        public async Task<ActionResult> Register(RegisterUserRequest registerUser)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -38,6 +39,7 @@ namespace DesafioNetCore.API.Controllers.Auth
             {
                 Name = registerUser.Name,
                 Document = registerUser.Document,
+                Nickname = registerUser.NickName,
                 UserName = registerUser.Email,
                 Email = registerUser.Email,
                 EmailConfirmed = true

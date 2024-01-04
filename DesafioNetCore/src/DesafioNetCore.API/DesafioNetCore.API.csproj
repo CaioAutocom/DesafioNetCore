@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.14" />
@@ -28,10 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DesafioNetCore.Application\DesafioNetCore.Application.csproj" />
     <ProjectReference Include="..\DesafioNetCore.Infra\DesafioNetCore.Infra.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CQRC\Request\" />
   </ItemGroup>
 
 </Project>

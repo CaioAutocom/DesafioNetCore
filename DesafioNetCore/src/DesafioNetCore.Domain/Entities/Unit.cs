@@ -4,7 +4,7 @@ namespace DesafioNetCore.Domain.Entities;
 public class Unit  : EntityBase
 {
     public string Acronym { get; set; } = string.Empty; 
-    public string Description { get; set; } 
-    
+    public string Description { get; set; } = string.Empty;
+
     public ICollection<Product> Products { get; set;} = new List<Product>();
 }

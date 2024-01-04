@@ -12,7 +12,7 @@ public abstract class MainController : Controller
         if (IsValidOperation())
         {
             return Ok(result);
-        }
+        } 
         // ValidationProblemDetails Essa classe implementa um padrão especificado numa RFC de como uma API deve responder quando há erros
         return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>{
             { "Messages", Errors.ToArray() },
@@ -29,7 +29,6 @@ public abstract class MainController : Controller
 
         return CustomResponse();
     }
-
 
     protected bool IsValidOperation()
     {
