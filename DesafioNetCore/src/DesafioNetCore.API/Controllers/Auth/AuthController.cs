@@ -1,6 +1,6 @@
 ﻿using DesafioNetCore.API.CQRC;
-using DesafioNetCore.API.CQRC.Request.Register;
 using DesafioNetCore.API.Extensions;
+using DesafioNetCore.Application.CQRS;
 using DesafioNetCore.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

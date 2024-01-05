@@ -1,6 +1,6 @@
-﻿using DesafioNetCore.Domain.Entities;
-using DesafioNetCore.Infra.Repository.Contracts;
-using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using DesafioNetCore.Application.CQRS;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioNetCore.API.Controllers
@@ -8,16 +8,22 @@ namespace DesafioNetCore.API.Controllers
     [Route("[controller]")]
     public class UnitController : MainController
     {
-        [HttpGet]
-        public IEnumerable<Unit> GetAll() 
+        private readonly IMapper _mapper;
+
+        public UnitController(IMapper mapper)
         {
-           return _uow.UnitRepository.GetAll();
+            _mapper = mapper;
         }
+        //[HttpGet]
+        //public IEnumerable<GetAllUnitResponse> GetAll() 
+        //{
+        //    var T = await _unitService.GetAll();
+        //}
 
         [HttpPost]
-        public void Add(Unit unit)
+        public async Task<CreateUnitResponse> Add([FromServices]IMediator mediator, CreateUnitRequest request)
         {
-            
+            return await mediator.Send(request);
         }
     }
 }

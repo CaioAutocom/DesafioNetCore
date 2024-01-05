@@ -16,16 +16,16 @@ namespace DesafioNetCore.API.Controllers
             _userService = userService;
         }
  
-        [Authorize(Roles = "ADMINISTRATOR")]
-        [HttpGet]
-        public IEnumerable<User> GetAll()
-        {
-            return _userService.GetAll();
-        }
+        //[Authorize(Roles = "ADMINISTRATOR")]
+        //[HttpGet]
+        //public IEnumerable<User> GetAll()
+        //{
+        //    return _userService.GetAllAsync();
+        //}
         [HttpPost]
         public void Add(User user)
         {
-            _userService.Add(user);
+            _userService.AddAsync(user);
         }
     }
 }

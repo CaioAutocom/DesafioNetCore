@@ -1,24 +1,22 @@
-﻿using DesafioNetCore.Domain.Entities;
-using DesafioNetCore.Infra.Repository.Contracts;
+﻿using AutoMapper;
+using DesafioNetCore.Application.Contracts;
+using MediatR;
 
 namespace DesafioNetCore.Application.CQRS;
 
-public class CreateUnitHandler
-{
-    private readonly IUnitOfWork _uow;
-    public CreateUnitHandler(IUnitOfWork uow)
+public class CreateUnitHandler : IRequestHandler<CreateUnitRequest, CreateUnitResponse>
+{ 
+    private readonly IUnitService _unitService;
+    private readonly IMapper _mapper;
+    public CreateUnitHandler(IUnitService unitService, IMapper mapper)
     {
-        _uow = uow;
+        _unitService = unitService;
+        _mapper = mapper;
     }
 
-    public CreateUnitResponse Handle (CreateUnitRequest request)
+    public async Task<CreateUnitResponse> Handle(CreateUnitRequest request, CancellationToken cancellationToken)
     {
-        Unit unit = new Unit()
-        {
-            Acronym = request.Acronym,
-
-        };
-        _uow.UnitRepository.Add(unit);
-        _uow.Commit();
+        var newUnit = _mapper.Map<Domain.Entities.Unit>(request);
+        return _mapper.Map<CreateUnitResponse>(await _unitService.AddAsync(newUnit));
     }
 }

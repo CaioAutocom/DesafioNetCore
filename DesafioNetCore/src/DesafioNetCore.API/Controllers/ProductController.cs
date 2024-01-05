@@ -15,15 +15,15 @@ namespace DesafioNetCore.API.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        public IEnumerable<Product> GetAll()
-        {
-            return _productService.GetAll();
-        }
+        //[HttpGet]
+        //public IEnumerable<Product> GetAll()
+        //{
+        //    return _productService.GetAllAsync();
+        //}
         [HttpPost]
         public void Add(Product product)
         {
-            _productService.Add(product);
+            _productService.AddAsync(product);
         }
 
     }
