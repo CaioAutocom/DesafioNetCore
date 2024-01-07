@@ -4,8 +4,8 @@ public interface IServiceBase<T> where T : class
 {
     Task<T> AddAsync(T entity);
     Task<IEnumerable<T>> GetAllAsync();
-    Task<T> GetByIdAsyn(Guid guid);
-    Task<T> GetByShortId(string shortId);
-    Task<T> Update(T entity);
+    Task<T> GetByIdAsync(Guid guid);
+    Task<T> GetByShortIdAsync(string shortId);
+    Task<T> UpdateAsync(T entity);
     Task<T> Delete(Guid guid);
 }

@@ -10,13 +10,34 @@ public class UserRepository : IUserRespository
     {
         _context = context;
     }
-    public void Add(User user)
+
+    public Task<User> AddAsync(User entity)
     {
-        _context.Users.Add(user);
+        throw new NotImplementedException();
     }
 
-    public IEnumerable<User> GetAll()
+    public Task<User> Delete(Guid guid)
     {
-        return _context.Users;
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<User>> GetAllAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> GetByIdAsync(Guid guid)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> GetByShortIdAsync(string shortId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> UpdateAsync(User entity)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -6,7 +6,7 @@ namespace DesafioNetCore.Application.Services;
 
 public class ProductService : IProductService
 {
-    public void AddAsync(Product entity)
+    public Task<Product> AddAsync(Product entity)
     {
         throw new NotImplementedException();
     }
@@ -21,28 +21,18 @@ public class ProductService : IProductService
         throw new NotImplementedException();
     }
 
-    public Task<Product> GetByIdAsyn(Guid guid)
+    public Task<Product> GetByIdAsync(Guid guid)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Product> GetByShortId(string shortId)
+    public Task<Product> GetByShortIdAsync(string shortId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Product> Update(Product entity)
+    public Task<Product> UpdateAsync(Product entity)
     {
         throw new NotImplementedException();
     }
-
-    Task<Product> IServiceBase<Product>.AddAsync(Product entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    //IEnumerable<Product> IServiceBase<Product>.GetAll()
-    //{
-    //    throw new NotImplementedException();
-    //}
 }

@@ -16,7 +16,7 @@ public class UserService : IUserService
 
     public void AddAsync(User user)
     {
-        _uow.UserRespository.Add(user);
+        _uow.UserRespository.AddAsync(user);
         _uow.CommitIdentity();
     }
 
@@ -25,9 +25,9 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    public IEnumerable<User> GetAll()
+    public async Task<IEnumerable<User>> GetAll()
     {
-        return _uow.UserRespository.GetAll();
+        return await _uow.UserRespository.GetAllAsync();
     }
 
     public Task<IEnumerable<User>> GetAllAsync()
@@ -40,12 +40,27 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
+    public Task<User> GetByIdAsync(Guid guid)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<User> GetByShortId(string shortId)
     {
         throw new NotImplementedException();
     }
 
+    public Task<User> GetByShortIdAsync(string shortId)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<User> Update(User entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User> UpdateAsync(User entity)
     {
         throw new NotImplementedException();
     }

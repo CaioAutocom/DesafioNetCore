@@ -12,14 +12,34 @@ namespace DesafioNetCore.Infra.Repository
             _context = context;
         }
 
-        public void Add(Person person)
+        public Task<Person> AddAsync(Person entity)
         {
-            _context.Add(person);
+            throw new NotImplementedException();
         }
 
-        public IEnumerable<Person> GetAll()
+        public Task<Person> Delete(Guid guid)
         {
-            return _context.Persons;
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<Person>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Person> GetByIdAsync(Guid guid)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Person> GetByShortIdAsync(string shortId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Person> UpdateAsync(Person entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

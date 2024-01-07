@@ -1,11 +1,13 @@
 using DesafioNetCore.API;
 using DesafioNetCore.Application;
 using DesafioNetCore.Application.Contracts;
+using DesafioNetCore.Application.CQRS;
 using DesafioNetCore.Application.Services;
 using DesafioNetCore.Infra;
 using DesafioNetCore.Infra.Migrations;
 using DesafioNetCore.Infra.Repository;
 using DesafioNetCore.Infra.Repository.Contracts;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,12 +20,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
-
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 // Lembrar de resolver as dependencias de um jeito mais profissional
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IUnitService, UnitService>();
 
 
 var app = builder.Build();

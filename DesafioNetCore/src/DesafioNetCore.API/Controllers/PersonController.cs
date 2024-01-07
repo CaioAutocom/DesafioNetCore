@@ -18,13 +18,13 @@ namespace DesafioNetCore.API.Controllers
         [HttpPost]
         public void Add(Person person)
         {
-            _uow.PersonRepository.Add(person);
+            _uow.PersonRepository.AddAsync(person);
             _uow.Commit();
         }
         [HttpGet]
-        public IEnumerable<Person> GetAll()
+        public async Task<IEnumerable<Person>> GetAll()
         {
-            return _uow.PersonRepository.GetAll();
+            return await _uow.PersonRepository.GetAllAsync();
         }
     }
 }
