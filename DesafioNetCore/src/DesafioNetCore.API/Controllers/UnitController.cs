@@ -14,16 +14,24 @@ namespace DesafioNetCore.API.Controllers
         {
             _mapper = mapper;
         }
-        //[HttpGet]
-        //public IEnumerable<GetAllUnitResponse> GetAll() 
-        //{
-        //    var T = await _unitService.GetAll();
-        //}
+       
 
         [HttpPost]
         public async Task<CreateUnitResponse> Add([FromServices]IMediator mediator, CreateUnitRequest request)
         {
             return await mediator.Send(request);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUnit(string acronym,
+            [FromServices] IMediator mediator,
+            [FromBody] UpdateUnitRequest updateRequest)
+        {
+            // implementar posteriormente o tratamento para validação dos dados.
+            var updateResponse = await mediator.Send(updateRequest);
+
+
+            return Ok(updateResponse);
         }
     }
 }

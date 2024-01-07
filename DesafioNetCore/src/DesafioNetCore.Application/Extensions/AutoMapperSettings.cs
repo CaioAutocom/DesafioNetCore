@@ -10,6 +10,8 @@ namespace DesafioNetCore.Application.Extensions
         {
             CreateMap<Unit, CreateUnitResponse>().ReverseMap();
             CreateMap<Unit, CreateUnitRequest>().ReverseMap();
+            CreateMap<Unit, UpdateUnitRequest>().ReverseMap();
+            CreateMap<Unit, UpdateUnitResponse>().ReverseMap();
         }
     }
 }

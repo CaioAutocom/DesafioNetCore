@@ -1,6 +1,4 @@
-﻿
-using DesafioNetCore.Application.CQRS;
-using DesafioNetCore.Infra;
+﻿using DesafioNetCore.Application.CQRS.Handlers.Units;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

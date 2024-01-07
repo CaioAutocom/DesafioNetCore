@@ -1,13 +1,6 @@
 ﻿using DesafioNetCore.Application.Contracts;
-using DesafioNetCore.Application.CQRS;
 using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Repository.Contracts;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DesafioNetCore.Application.Services
 {
@@ -26,44 +19,38 @@ namespace DesafioNetCore.Application.Services
             return entity;
         }
 
-        public Task<Unit> Delete(Guid guid)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Unit>> GetAllAsync()
         {
             return await _unitOfWork.UnitRepository.GetAllAsync();
         }
-
-        public Task<Unit> GetByIdAsyn(Guid guid)
+        // nao vai ser utilizado este
+        public async Task<Unit> GetByIdAsync(Guid guid)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.UnitRepository.GetByIdAsync(guid);
         }
 
-        public Task<Unit> GetByIdAsync(Guid guid)
+        public async Task<Unit> GetByAcronym(string acronym)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.UnitRepository.GetByAcronym(acronym);
         }
 
-        public Task<Unit> GetByShortId(string shortId)
+        public async Task<Unit> GetByShortIdAsync(string shortId)
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.UnitRepository.GetByShortIdAsync(shortId);
         }
 
-        public Task<Unit> GetByShortIdAsync(string shortId)
+        public async Task<Unit> UpdateAsync(Unit entity)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.UnitRepository.UpdateAsync(entity);
+            _unitOfWork.Commit();
+            return entity;
         }
 
-        public Task<Unit> Update(Unit entity)
+        public async Task<Unit> Delete(Guid guid)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Unit> UpdateAsync(Unit entity)
-        {
-            throw new NotImplementedException();
+            var entity = await _unitOfWork.UnitRepository.Delete(guid);
+            _unitOfWork.Commit();
+            return entity;
         }
     }
 }
