@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DesafioNetCore.Infra.Migrations
+namespace DesafioNetCore.Infra.Migrations.Identity
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -36,6 +36,7 @@ namespace DesafioNetCore.Infra.Migrations
                 columns: table => new
                 {
                     id = table.Column<string>(type: "text", nullable: false),
+                    shortid = table.Column<string>(type: "text", nullable: true),
                     name = table.Column<string>(type: "text", nullable: true),
                     nickname = table.Column<string>(type: "text", nullable: true),
                     document = table.Column<string>(type: "text", nullable: true),

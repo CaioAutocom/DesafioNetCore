@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DesafioNetCore.Infra.Migrations
+namespace DesafioNetCore.Infra.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20240104185059_Initial")]
+    [Migration("20240107051535_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -84,6 +84,10 @@ namespace DesafioNetCore.Infra.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
+
+                    b.Property<string>("ShortId")
+                        .HasColumnType("text")
+                        .HasColumnName("shortid");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");

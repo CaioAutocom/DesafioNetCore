@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DesafioNetCore.Infra.Migrations
+namespace DesafioNetCore.Infra.Migrations.Identity
 {
     [DbContext(typeof(IdentityContext))]
     partial class IdentityContextModelSnapshot : ModelSnapshot
@@ -81,6 +81,10 @@ namespace DesafioNetCore.Infra.Migrations
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
+
+                    b.Property<string>("ShortId")
+                        .HasColumnType("text")
+                        .HasColumnName("shortid");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");

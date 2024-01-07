@@ -16,7 +16,7 @@ public class AppDbContext : DbContext
         modelBuilder.HasDefaultSchema("public");
         modelBuilder.ApplyConfiguration(new PersonMapper());
         modelBuilder.ApplyConfiguration(new ProdutctMapper());
-        
+        modelBuilder.ApplyConfiguration(new UnitMapper());
     }
     public DbSet<Person> Persons => Set<Person>();
     public DbSet<Product> Produtcts => Set<Product>();

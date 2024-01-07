@@ -10,7 +10,7 @@ public class PersonMapper : IEntityTypeConfiguration<Person>
     {
         person.ToTable("person");
         person.HasKey(x => x.Id);
-
+        person.Property(x => x.ShortId).HasColumnName("shortid");
         person.Property(x => x.Id).HasColumnName("id");
         person.Property(x => x.Name).HasColumnName("name");
         person.Property(x => x.Document).HasColumnName("document");

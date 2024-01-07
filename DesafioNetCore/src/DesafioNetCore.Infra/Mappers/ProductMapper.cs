@@ -1,6 +1,7 @@
 ﻿using DesafioNetCore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace DesafioNetCore.Infra.Mappers;
 
@@ -12,6 +13,7 @@ public class ProdutctMapper : IEntityTypeConfiguration<Product>
         product.HasKey(x => x.Id);
 
         product.Property(x => x.Id).HasColumnName("id");
+        product.Property(x => x.ShortId).HasColumnName("shortid");
         product.Property(x => x.FullDescription).HasColumnName("shortdescription");
         product.Property(x => x.ShortDescription).HasColumnName("fulldescription");
         product.Property(x => x.Price).HasColumnName("price");
@@ -23,7 +25,7 @@ public class ProdutctMapper : IEntityTypeConfiguration<Product>
 
         product.HasOne(x => x.Unit)
             .WithMany()
-            .HasForeignKey(x => x.IdUnit)
+            .HasForeignKey(x => x.Acronym)
             .IsRequired();
     }
 }

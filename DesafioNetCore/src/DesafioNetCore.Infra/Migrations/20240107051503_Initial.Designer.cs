@@ -3,17 +3,20 @@ using System;
 using DesafioNetCore.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DesafioNetCore.Infra.Migrations.AppDb
+namespace DesafioNetCore.Infra.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240107051503_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,6 +57,10 @@ namespace DesafioNetCore.Infra.Migrations.AppDb
                         .HasColumnType("text")
                         .HasColumnName("observations");
 
+                    b.Property<string>("ShortId")
+                        .HasColumnType("text")
+                        .HasColumnName("shortid");
+
                     b.Property<string>("Town")
                         .HasColumnType("text")
                         .HasColumnName("town");
@@ -69,6 +76,10 @@ namespace DesafioNetCore.Infra.Migrations.AppDb
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<string>("Acronym")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("Active")
                         .HasColumnType("boolean")
@@ -98,50 +109,60 @@ namespace DesafioNetCore.Infra.Migrations.AppDb
                         .HasColumnType("text")
                         .HasColumnName("fulldescription");
 
+                    b.Property<string>("ShortId")
+                        .HasColumnType("text")
+                        .HasColumnName("shortid");
+
                     b.Property<decimal>("Storage")
                         .HasColumnType("numeric")
                         .HasColumnName("storage");
 
-                    b.Property<Guid?>("UnitId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("UnitAcronym")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdUnit");
+                    b.HasIndex("Acronym");
 
-                    b.HasIndex("UnitId");
+                    b.HasIndex("UnitAcronym");
 
                     b.ToTable("product", "public");
                 });
 
             modelBuilder.Entity("DesafioNetCore.Domain.Entities.Unit", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Acronym")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("acronym");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("description");
 
-                    b.HasKey("Id");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
-                    b.ToTable("Units", "public");
+                    b.Property<string>("ShortId")
+                        .HasColumnType("text")
+                        .HasColumnName("shortid");
+
+                    b.HasKey("Acronym");
+
+                    b.ToTable("unit", "public");
                 });
 
             modelBuilder.Entity("DesafioNetCore.Domain.Entities.Product", b =>
                 {
                     b.HasOne("DesafioNetCore.Domain.Entities.Unit", "Unit")
                         .WithMany()
-                        .HasForeignKey("IdUnit")
+                        .HasForeignKey("Acronym")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DesafioNetCore.Domain.Entities.Unit", null)
                         .WithMany("Products")
-                        .HasForeignKey("UnitId");
+                        .HasForeignKey("UnitAcronym");
 
                     b.Navigation("Unit");
                 });

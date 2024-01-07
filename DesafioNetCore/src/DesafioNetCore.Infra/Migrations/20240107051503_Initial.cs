@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DesafioNetCore.Infra.Migrations.AppDb
+namespace DesafioNetCore.Infra.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -13,20 +13,6 @@ namespace DesafioNetCore.Infra.Migrations.AppDb
         {
             migrationBuilder.EnsureSchema(
                 name: "public");
-
-            migrationBuilder.CreateTable(
-                name: "Units",
-                schema: "public",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Acronym = table.Column<string>(type: "text", nullable: true),
-                    Description = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Units", x => x.Id);
-                });
 
             migrationBuilder.CreateTable(
                 name: "person",
@@ -40,11 +26,27 @@ namespace DesafioNetCore.Infra.Migrations.AppDb
                     canbuy = table.Column<bool>(type: "boolean", nullable: false),
                     observations = table.Column<string>(type: "text", nullable: true),
                     alternativeidentifier = table.Column<string>(type: "text", nullable: true),
-                    active = table.Column<bool>(type: "boolean", nullable: false)
+                    active = table.Column<bool>(type: "boolean", nullable: false),
+                    shortid = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_person", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "unit",
+                schema: "public",
+                columns: table => new
+                {
+                    acronym = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: true),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    shortid = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_unit", x => x.acronym);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,37 +63,39 @@ namespace DesafioNetCore.Infra.Migrations.AppDb
                     cansell = table.Column<bool>(type: "boolean", nullable: false),
                     active = table.Column<bool>(type: "boolean", nullable: false),
                     acronym = table.Column<Guid>(type: "uuid", nullable: false),
-                    UnitId = table.Column<Guid>(type: "uuid", nullable: true)
+                    Acronym = table.Column<string>(type: "text", nullable: false),
+                    UnitAcronym = table.Column<string>(type: "text", nullable: true),
+                    shortid = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_product", x => x.id);
                     table.ForeignKey(
-                        name: "FK_product_Units_UnitId",
-                        column: x => x.UnitId,
+                        name: "FK_product_unit_Acronym",
+                        column: x => x.Acronym,
                         principalSchema: "public",
-                        principalTable: "Units",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_product_Units_acronym",
-                        column: x => x.acronym,
-                        principalSchema: "public",
-                        principalTable: "Units",
-                        principalColumn: "Id",
+                        principalTable: "unit",
+                        principalColumn: "acronym",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_product_unit_UnitAcronym",
+                        column: x => x.UnitAcronym,
+                        principalSchema: "public",
+                        principalTable: "unit",
+                        principalColumn: "acronym");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_product_UnitId",
+                name: "IX_product_Acronym",
                 schema: "public",
                 table: "product",
-                column: "UnitId");
+                column: "Acronym");
 
             migrationBuilder.CreateIndex(
-                name: "IX_product_acronym",
+                name: "IX_product_UnitAcronym",
                 schema: "public",
                 table: "product",
-                column: "acronym");
+                column: "UnitAcronym");
         }
 
         /// <inheritdoc />
@@ -106,7 +110,7 @@ namespace DesafioNetCore.Infra.Migrations.AppDb
                 schema: "public");
 
             migrationBuilder.DropTable(
-                name: "Units",
+                name: "unit",
                 schema: "public");
         }
     }
