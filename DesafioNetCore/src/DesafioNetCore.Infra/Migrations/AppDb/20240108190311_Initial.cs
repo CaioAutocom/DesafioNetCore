@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DesafioNetCore.Infra.Migrations
+namespace DesafioNetCore.Infra.Migrations.AppDb
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -62,8 +62,7 @@ namespace DesafioNetCore.Infra.Migrations
                     barcode = table.Column<string>(type: "text", nullable: true),
                     cansell = table.Column<bool>(type: "boolean", nullable: false),
                     active = table.Column<bool>(type: "boolean", nullable: false),
-                    acronym = table.Column<Guid>(type: "uuid", nullable: false),
-                    Acronym = table.Column<string>(type: "text", nullable: false),
+                    acronym = table.Column<string>(type: "text", nullable: false),
                     UnitAcronym = table.Column<string>(type: "text", nullable: true),
                     shortid = table.Column<string>(type: "text", nullable: true)
                 },
@@ -71,31 +70,31 @@ namespace DesafioNetCore.Infra.Migrations
                 {
                     table.PrimaryKey("PK_product", x => x.id);
                     table.ForeignKey(
-                        name: "FK_product_unit_Acronym",
-                        column: x => x.Acronym,
-                        principalSchema: "public",
-                        principalTable: "unit",
-                        principalColumn: "acronym",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_product_unit_UnitAcronym",
                         column: x => x.UnitAcronym,
                         principalSchema: "public",
                         principalTable: "unit",
                         principalColumn: "acronym");
+                    table.ForeignKey(
+                        name: "FK_product_unit_acronym",
+                        column: x => x.acronym,
+                        principalSchema: "public",
+                        principalTable: "unit",
+                        principalColumn: "acronym",
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_product_Acronym",
-                schema: "public",
-                table: "product",
-                column: "Acronym");
 
             migrationBuilder.CreateIndex(
                 name: "IX_product_UnitAcronym",
                 schema: "public",
                 table: "product",
                 column: "UnitAcronym");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_product_acronym",
+                schema: "public",
+                table: "product",
+                column: "acronym");
         }
 
         /// <inheritdoc />

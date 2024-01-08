@@ -1,6 +1,8 @@
 ﻿using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Repository.Contracts;
+using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DesafioNetCore.Application.Services
 {
@@ -46,11 +48,12 @@ namespace DesafioNetCore.Application.Services
             return entity;
         }
 
-        public async Task<Unit> Delete(Guid guid)
+        public async Task<bool> DeleteAsync(string shortId)
         {
-            var entity = await _unitOfWork.UnitRepository.Delete(guid);
+            var deleted = await _unitOfWork.UnitRepository.DeleteAsync(shortId);
             _unitOfWork.Commit();
-            return entity;
+
+            return deleted;
         }
     }
 }

@@ -9,10 +9,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace DesafioNetCore.Infra.Migrations
+namespace DesafioNetCore.Infra.Migrations.AppDb
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240107051503_Initial")]
+    [Migration("20240108190311_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -79,7 +79,8 @@ namespace DesafioNetCore.Infra.Migrations
 
                     b.Property<string>("Acronym")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("acronym");
 
                     b.Property<bool>("Active")
                         .HasColumnType("boolean")
@@ -96,10 +97,6 @@ namespace DesafioNetCore.Infra.Migrations
                     b.Property<string>("FullDescription")
                         .HasColumnType("text")
                         .HasColumnName("shortdescription");
-
-                    b.Property<Guid>("IdUnit")
-                        .HasColumnType("uuid")
-                        .HasColumnName("acronym");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric")

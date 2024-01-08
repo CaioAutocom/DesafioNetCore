@@ -21,6 +21,11 @@ public class UserRepository : IUserRespository
         throw new NotImplementedException();
     }
 
+    public Task<bool> DeleteAsync(string shortId)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<IEnumerable<User>> GetAllAsync()
     {
         throw new NotImplementedException();

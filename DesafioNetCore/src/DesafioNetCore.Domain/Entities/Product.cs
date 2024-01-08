@@ -11,7 +11,6 @@ public class Product : EntityBase
     public required string BarCode { get; set; }
     public bool CanSell { get; set; }
     public bool Active { get; set; }
-    public Guid IdUnit { get; set; }
     public string Acronym { get; set; }
     public Unit Unit { get; set; }
 

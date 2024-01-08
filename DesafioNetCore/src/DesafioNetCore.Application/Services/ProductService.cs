@@ -11,7 +11,7 @@ public class ProductService : IProductService
         throw new NotImplementedException();
     }
 
-    public Task<Product> Delete(Guid guid)
+    public Task<bool> DeleteAsync(string shortId)
     {
         throw new NotImplementedException();
     }

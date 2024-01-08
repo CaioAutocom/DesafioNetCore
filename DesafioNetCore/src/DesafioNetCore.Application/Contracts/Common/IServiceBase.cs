@@ -7,5 +7,5 @@ public interface IServiceBase<T> where T : class
     Task<T> GetByIdAsync(Guid guid);
     Task<T> GetByShortIdAsync(string shortId);
     Task<T> UpdateAsync(T entity);
-    Task<T> Delete(Guid guid);
+    Task<bool> DeleteAsync(string shortId);
 }

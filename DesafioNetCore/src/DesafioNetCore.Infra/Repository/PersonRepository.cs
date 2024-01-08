@@ -22,6 +22,11 @@ namespace DesafioNetCore.Infra.Repository
             throw new NotImplementedException();
         }
 
+        public Task<bool> DeleteAsync(string shortId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<IEnumerable<Person>> GetAllAsync()
         {
             throw new NotImplementedException();

@@ -19,8 +19,7 @@ public class UserService : IUserService
         _uow.UserRespository.AddAsync(user);
         _uow.CommitIdentity();
     }
-
-    public Task<User> Delete(Guid guid)
+    public Task<bool> DeleteAsync(string shortId)
     {
         throw new NotImplementedException();
     }
