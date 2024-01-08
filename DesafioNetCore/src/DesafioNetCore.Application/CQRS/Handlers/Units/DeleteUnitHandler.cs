@@ -17,10 +17,9 @@ namespace DesafioNetCore.Application.CQRS.Handlers.Units
             _unitService = unitService;
         }
 
-
-        Task<bool> IRequestHandler<DeleteRequest, bool>.Handle(DeleteRequest request, CancellationToken cancellationToken)
+        async Task<bool> IRequestHandler<DeleteRequest, bool>.Handle(DeleteRequest request, CancellationToken cancellationToken)
         {
-            return _unitService.DeleteAsync(request.ShortId); 
+            return await _unitService.DeleteAsync(request.ShortId); 
         }
     }
 }

@@ -8,12 +8,22 @@ namespace DesafioNetCore.Application.Extensions
     {
         public AutoMapperSettings()
         {
+            #region Units
             CreateMap<Unit, CreateUnitResponse>().ReverseMap();
             CreateMap<Unit, CreateUnitRequest>().ReverseMap();
             CreateMap<Unit, UpdateUnitRequest>().ReverseMap();
             CreateMap<Unit, UpdateUnitResponse>().ReverseMap();
             CreateMap<Unit, GetUnitsResponse>().ReverseMap();
-          
+            #endregion
+
+            #region Person
+            CreateMap<Person, CreatePersonRequest>().ReverseMap();
+            CreateMap<Person, CreatePersonResponse>().ReverseMap();
+            CreateMap<Person, UpdatePersonRequest>().ReverseMap();
+            CreateMap<Person, UpdatePersonResponse>().ReverseMap();
+            CreateMap<Person, GetPersonsResponse>().ReverseMap();
+            #endregion
+
         }
     }
 }
