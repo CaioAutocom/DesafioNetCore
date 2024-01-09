@@ -1,6 +1,6 @@
-﻿using DesafioNetCore.API.CQRC;
-using DesafioNetCore.API.Extensions;
+﻿using DesafioNetCore.API.Extensions;
 using DesafioNetCore.Application.CQRS;
+using DesafioNetCore.Application.CQRS.Request.User;
 using DesafioNetCore.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -65,7 +65,7 @@ namespace DesafioNetCore.API.Controllers.Auth
         private async Task AddUserRole(User user, string role) => await _userManager.AddToRoleAsync(user, role);
 
         [HttpPost("login")]
-        public async Task<ActionResult> Login(LoginUserViewModel loginUser)
+        public async Task<ActionResult> Login(LoginUserRequest loginUser)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

@@ -16,4 +16,9 @@
     <ProjectReference Include="..\DesafioNetCore.Infra\DesafioNetCore.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CQRS\Handlers\Users\" />
+    <Folder Include="CQRS\Response\User\" />
+  </ItemGroup>
+
 </Project>

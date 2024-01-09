@@ -9,7 +9,7 @@ public class Product : EntityBase
     public decimal Price { get; set; }
     public decimal Storage { get; set; }
     public required string BarCode { get; set; }
-    public bool CanSell { get; set; }
+    public bool CanSell { get; set; } = false;
     public bool Active { get; set; }
     public required string Acronym { get; set; } = string.Empty;
     public Unit Unit { get; set; }
