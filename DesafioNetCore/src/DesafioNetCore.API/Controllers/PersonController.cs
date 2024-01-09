@@ -28,7 +28,7 @@ public class PersonController : MainController
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateUnit(string shortId, [FromBody] UpdatePersonRequest updateRequest)
+    public async Task<IActionResult> UpdateUnit(string shortId, UpdatePersonRequest updateRequest)
     {
         // implementar posteriormente o tratamento para validação dos dados.
         var updateResponse = await _mediator.Send(updateRequest);
@@ -48,7 +48,6 @@ public class PersonController : MainController
     [HttpDelete]
     public async Task<IActionResult> DeleteById(string shortId)
     {
-        bool deleted = await _personService.DeleteAsync(shortId);
-        return Ok(deleted);
+        return Ok(await _mediator.Send(shortId));
     }
 }

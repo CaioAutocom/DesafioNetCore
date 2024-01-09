@@ -1,4 +1,6 @@
-﻿namespace DesafioNetCore.Application.Contracts.Common;
+﻿using FluentValidation;
+
+namespace DesafioNetCore.Application.Contracts.Common;
 
 public interface IServiceBase<T> where T : class
 {

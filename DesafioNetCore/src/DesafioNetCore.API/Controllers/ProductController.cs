@@ -52,8 +52,7 @@ namespace DesafioNetCore.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteById(string shortId)
         {
-            bool deleted = await _productService.DeleteAsync(shortId);
-            return Ok(deleted);
+            return Ok(await _mediator.Send(shortId));
         }
     }
 }

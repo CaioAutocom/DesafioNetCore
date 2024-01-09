@@ -1,4 +1,5 @@
 ﻿using DesafioNetCore.Application.CQRS.Handlers;
+using DesafioNetCore.Application.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -11,6 +12,7 @@ namespace DesafioNetCore.Application
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateUnitHandler>());
+            services.ResolveDependencies(config);
             return services;
         }
     }

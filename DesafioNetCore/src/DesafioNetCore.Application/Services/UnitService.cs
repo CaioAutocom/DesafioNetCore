@@ -1,8 +1,6 @@
 ﻿using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Repository.Contracts;
-using System;
-using System.Reflection.Metadata.Ecma335;
 
 namespace DesafioNetCore.Application.Services
 {
