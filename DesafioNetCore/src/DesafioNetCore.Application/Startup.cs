@@ -1,4 +1,4 @@
-﻿using DesafioNetCore.Application.CQRS.Handlers.Units;
+﻿using DesafioNetCore.Application.CQRS.Handlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;

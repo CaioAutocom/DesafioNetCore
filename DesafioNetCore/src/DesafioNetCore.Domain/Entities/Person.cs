@@ -1,18 +1,16 @@
 ﻿using DesafioNetCore.Domain.Entities.Common;
 
-namespace DesafioNetCore.Domain.Entities
-{
+namespace DesafioNetCore.Domain.Entities;
 
-    public class Person : EntityBase
-    {
-        public required string Name { get; set; }
-        public string Document { get; set; } = string.Empty;
-        public required string Town { get; set; } = string.Empty;
-        public bool CanBuy { get; set; }
-        public string Observations { get; set; } = string.Empty;
-        public string AlternativeIdentifier { get; set; } = string.Empty;
-        public bool Enable { get; set; } = true;
-    }
+public class Person : EntityBase
+{
+    public required string Name { get; set; }
+    public string Document { get; set; } = string.Empty;
+    public required string Town { get; set; } = string.Empty;
+    public bool CanBuy { get; set; }
+    public string Observations { get; set; } = string.Empty;
+    public string AlternativeIdentifier { get; set; } = string.Empty;
+    public bool Enable { get; set; } = true;
 }
 
 /*Pessoas

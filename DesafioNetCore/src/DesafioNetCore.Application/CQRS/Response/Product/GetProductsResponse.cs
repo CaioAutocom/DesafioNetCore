@@ -1,7 +1,8 @@
-﻿using DesafioNetCore.Domain.Entities.Common;
+﻿using DesafioNetCore.Domain.Entities;
+using MediatR;
 
-namespace DesafioNetCore.Domain.Entities;
-public class Product : EntityBase
+namespace DesafioNetCore.Application.CQRS;
+public class GetProductsResponse : IRequest<Product>
 {
     public required string FullDescription { get; set; } = string.Empty;
     public required string ShortDescription { get; set; } = string.Empty;
@@ -12,5 +13,5 @@ public class Product : EntityBase
     public bool CanSell { get; set; }
     public bool Active { get; set; }
     public required string Acronym { get; set; } = string.Empty;
-    public Unit Unit { get; set; }
+    public Domain.Entities.Unit Unit { get; set; }
 }

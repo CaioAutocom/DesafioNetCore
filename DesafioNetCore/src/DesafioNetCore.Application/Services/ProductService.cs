@@ -1,38 +1,51 @@
 ﻿using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Application.Contracts.Common;
 using DesafioNetCore.Domain.Entities;
+using DesafioNetCore.Infra.Repository.Contracts;
 
 namespace DesafioNetCore.Application.Services;
 
 public class ProductService : IProductService
 {
-    public Task<Product> AddAsync(Product entity)
+    private readonly IUnitOfWork _unitOfWork;
+    public ProductService(IUnitOfWork unitOfWork)
     {
-        throw new NotImplementedException();
+        _unitOfWork = unitOfWork;
+    }
+    public async Task<Product> AddAsync(Product entity)
+    {
+        await _unitOfWork.ProductRepository.AddAsync(entity);
+        _unitOfWork.Commit();
+        return entity;
     }
 
-    public Task<bool> DeleteAsync(string shortId)
+    public async Task<IEnumerable<Product>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _unitOfWork.ProductRepository.GetAllAsync();
+    }
+    // nao vai ser utilizado este
+    public async Task<Product> GetByIdAsync(Guid guid)
+    {
+        return await _unitOfWork.ProductRepository.GetByIdAsync(guid);
     }
 
-    public Task<IEnumerable<Product>> GetAllAsync()
+    public async Task<Product> GetByShortIdAsync(string shortId)
     {
-        throw new NotImplementedException();
+        return await _unitOfWork.ProductRepository.GetByShortIdAsync(shortId);
     }
 
-    public Task<Product> GetByIdAsync(Guid guid)
+    public async Task<Product> UpdateAsync(Product entity)
     {
-        throw new NotImplementedException();
+        await _unitOfWork.ProductRepository.UpdateAsync(entity);
+        _unitOfWork.Commit();
+        return entity;
     }
 
-    public Task<Product> GetByShortIdAsync(string shortId)
+    public async Task<bool> DeleteAsync(string shortId)
     {
-        throw new NotImplementedException();
-    }
+        var deleted = await _unitOfWork.ProductRepository.DeleteAsync(shortId);
+        _unitOfWork.Commit();
 
-    public Task<Product> UpdateAsync(Product entity)
-    {
-        throw new NotImplementedException();
+        return deleted;
     }
 }

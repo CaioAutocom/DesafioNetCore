@@ -19,7 +19,7 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new UnitMapper());
     }
     public DbSet<Person> Persons => Set<Person>();
-    public DbSet<Product> Produtcts => Set<Product>();
+    public DbSet<Product> Products => Set<Product>();
     public DbSet<Unit> Units => Set<Unit>();
     
 }

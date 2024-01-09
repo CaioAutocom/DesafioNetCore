@@ -2,8 +2,7 @@
 using DesafioNetCore.Application.Contracts;
 using MediatR;
 
-namespace DesafioNetCore.Application.CQRS.Handlers.Units;
-
+namespace DesafioNetCore.Application.CQRS.Handlers;
 public class CreateUnitHandler : IRequestHandler<CreateUnitRequest, CreateUnitResponse>
 {
     private readonly IUnitService _unitService;
