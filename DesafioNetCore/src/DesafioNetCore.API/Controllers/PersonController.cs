@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Application.CQRS;
+using DesafioNetCore.Domain.Entities;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,25 +14,40 @@ public class PersonController : MainController
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
     private readonly IPersonService _personService;
+    private readonly IValidator<Person> _validator;
 
-    public PersonController(IMapper mapper, IMediator mediator, IPersonService personService)
+    public PersonController(IMapper mapper, IMediator mediator, IPersonService personService, IValidator<Person> validator)
     {
         _mapper = mapper;
         _mediator = mediator;
         _personService = personService;
+        _validator = validator;
     }
 
 
     [HttpPost]
     public async Task<IActionResult> Add(CreatePersonRequest request)
     {
+        var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(request));
+
+        if (!validationResult.IsValid)
+        {
+            AddErrors(validationResult.Errors);
+            return CustomResponse(validationResult);
+        }
         return Ok(await _mediator.Send(request));
     }
 
     [HttpPut]
     public async Task<IActionResult> UpdateUnit(string shortId, UpdatePersonRequest updateRequest)
     {
-        // implementar posteriormente o tratamento para validação dos dados.
+        var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(updateRequest));
+
+        if (!validationResult.IsValid)
+        {
+            AddErrors(validationResult.Errors);
+            return CustomResponse(validationResult);
+        }
         var updateResponse = await _mediator.Send(updateRequest);
 
         return Ok(updateResponse);

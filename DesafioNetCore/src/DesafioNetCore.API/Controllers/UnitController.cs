@@ -31,7 +31,8 @@ namespace DesafioNetCore.API.Controllers
             
             if (!validationResult.IsValid)
             {
-                AddErros(validationResult.Errors);
+                AddErrors(validationResult.Errors);
+                return CustomResponse(validationResult);
             }
             return Ok(await _mediator.Send(request));
             
@@ -40,7 +41,14 @@ namespace DesafioNetCore.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUnit(string acronym, [FromBody] UpdateUnitRequest updateRequest)
         {
-            // implementar posteriormente o tratamento para validação dos dados.
+            var validationResult = await _validator.ValidateAsync(_mapper.Map<Domain.Entities.Unit>(updateRequest));
+
+            if (!validationResult.IsValid)
+            {
+                AddErrors(validationResult.Errors);
+                return CustomResponse(validationResult);
+            }
+
             var updateResponse = await _mediator.Send(updateRequest);
 
             return Ok(updateResponse);

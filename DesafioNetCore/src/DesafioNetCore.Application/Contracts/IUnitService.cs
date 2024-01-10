@@ -5,6 +5,6 @@ namespace DesafioNetCore.Application.Contracts
 {
     public interface IUnitService : IServiceBase<Unit>
     {
-        Task<Unit> GetByAcronym(string acronym);
+        Task<Unit> GetByAcronymAsync(string acronym);
     }
 }

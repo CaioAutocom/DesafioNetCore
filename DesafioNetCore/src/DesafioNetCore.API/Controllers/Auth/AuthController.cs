@@ -56,7 +56,7 @@ namespace DesafioNetCore.API.Controllers.Auth
 
             foreach (var error in result.Errors)
             {
-                AddErros(error.Description);
+                AddErrors(error.Description);
             }
             return CustomResponse();
 
@@ -76,7 +76,7 @@ namespace DesafioNetCore.API.Controllers.Auth
                 return CustomResponse(await CreateJwt(loginUser.Email));
             }
 
-            AddErros("Wrong user or password");
+            AddErrors("Wrong user or password");
             return CustomResponse();
         }
 

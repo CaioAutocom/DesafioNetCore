@@ -28,7 +28,7 @@ public class UnitRepository : IUnitRepository
     {
         return await _context.Units.FindAsync(guid);
     }
-    public async Task<Unit> GetByAcronym(string acronym)
+    public async Task<Unit> GetByAcronymAsync(string acronym)
     {
         return await _context.Units.FindAsync(acronym);
     }

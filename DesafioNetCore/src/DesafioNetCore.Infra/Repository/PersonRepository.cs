@@ -49,4 +49,14 @@ public class PersonRepository : IPersonRepository
         var removed = _context.Remove(await _context.Persons.SingleOrDefaultAsync(x => x.ShortId == shortId));
         return removed != null;
     }
+
+    public async Task<Person> GetByDocAsync(string doc)
+    {
+        return await _context.Persons.SingleOrDefaultAsync(x => x.Document == doc);
+    }
+
+    public async Task<Person> GetByAlternativeCode(string alternativeCode)
+    {
+        return await _context.Persons.SingleOrDefaultAsync(x => x.AlternativeIdentifier == alternativeCode);
+    }
 }

@@ -1,6 +1,8 @@
 ﻿using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Repository.Contracts;
+using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DesafioNetCore.Application.Services
 {
@@ -29,9 +31,9 @@ namespace DesafioNetCore.Application.Services
             return await _unitOfWork.UnitRepository.GetByIdAsync(guid);
         }
 
-        public async Task<Unit> GetByAcronym(string acronym)
+        public async Task<Unit> GetByAcronymAsync(string acronym)
         {
-            return await _unitOfWork.UnitRepository.GetByAcronym(acronym);
+            return await _unitOfWork.UnitRepository.GetByAcronymAsync(acronym);
         }
 
         public async Task<Unit> GetByShortIdAsync(string shortId)

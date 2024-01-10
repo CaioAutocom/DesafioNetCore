@@ -17,7 +17,7 @@ public class UpdateUnitHandler : IRequestHandler<UpdateUnitRequest, UpdateUnitRe
 
     public async Task<UpdateUnitResponse> Handle(UpdateUnitRequest request, CancellationToken cancellationToken)
     {
-        var existingUnit = await _unitService.GetByAcronym(request.Acronym);
+        var existingUnit = await _unitService.GetByAcronymAsync(request.Acronym);
 
         if (existingUnit == null)
         {

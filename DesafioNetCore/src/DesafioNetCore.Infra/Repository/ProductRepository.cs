@@ -50,5 +50,9 @@ namespace DesafioNetCore.Infra.Repository
             return removed != null;
         }
 
+        public async Task<bool> BarCodeDoesNotExistAsync(string barCode)
+        {
+            return await _appDbContext.Products.SingleOrDefaultAsync(x => x.BarCode == barCode) == null;
+        }
     }
 }

@@ -24,7 +24,7 @@ public abstract class MainController : Controller
 
         foreach (var error in errors)
         {
-            AddErros(error.ErrorMessage);
+            AddErrors(error.ErrorMessage);
         }
 
         return CustomResponse();
@@ -34,7 +34,14 @@ public abstract class MainController : Controller
     {
         return !Errors.Any();
     }
-    protected void AddErros(string error) => Errors.Add(error);
+    protected void AddErrors(string error) => Errors.Add(error);
+    protected void AddErrors(List<FluentValidation.Results.ValidationFailure> errors)
+    {
+        foreach (var error in errors)
+        {
+            Errors.Add(error.ToString());
+        }
+    }
     protected void ClearErrors() => Errors.Clear();
 
 }

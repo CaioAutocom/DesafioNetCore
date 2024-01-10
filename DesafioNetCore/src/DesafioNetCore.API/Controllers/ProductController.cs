@@ -4,6 +4,7 @@ using DesafioNetCore.Application.CQRS;
 using DesafioNetCore.Application.CQRS.Request.Product;
 using DesafioNetCore.Application.Services;
 using DesafioNetCore.Domain.Entities;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,25 +17,40 @@ namespace DesafioNetCore.API.Controllers
         private readonly IProductService _productService;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-
-        public ProductController(IProductService productService, IMediator mediator, IMapper mapper)
+        private readonly IValidator<Product> _validator;
+        public ProductController(IProductService productService, IMediator mediator, IMapper mapper, IValidator<Product> validator)
         {
             _productService = productService;
             _mediator = mediator;
             _mapper = mapper;
+            _validator = validator;
         }
 
 
         [HttpPost]
         public async Task<IActionResult> Add(CreateProductRequest request)
         {
+            var validationResult = await _validator.ValidateAsync(_mapper.Map<Product>(request));
+
+            if (!validationResult.IsValid)
+            {
+                AddErrors(validationResult.Errors);
+                return CustomResponse(validationResult);
+            }
             return Ok(await _mediator.Send(request));
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateUnit(string shortId, [FromBody] UpdateProductRequest updateRequest)
         {
-            // implementar posteriormente o tratamento para validação dos dados.
+            var validationResult = await _validator.ValidateAsync(_mapper.Map<Product>(updateRequest));
+
+            if (!validationResult.IsValid)
+            {
+                AddErrors(validationResult.Errors);
+                return CustomResponse(validationResult);
+            }
+
             var updateResponse = await _mediator.Send(updateRequest);
 
             return Ok(updateResponse);
