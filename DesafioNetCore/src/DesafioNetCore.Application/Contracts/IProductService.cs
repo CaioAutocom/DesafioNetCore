@@ -5,4 +5,5 @@ namespace DesafioNetCore.Application.Contracts;
 
 public interface IProductService : IServiceBase<Product>
 {
+    Task<List<Product>> GetAllVendableProducts();
 }

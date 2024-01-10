@@ -48,4 +48,9 @@ public class ProductService : IProductService
 
         return deleted;
     }
+
+    public Task<List<Product>> GetAllVendableProducts()
+    {
+         return _unitOfWork.ProductRepository.GetAllVendableProducts();
+    }
 }

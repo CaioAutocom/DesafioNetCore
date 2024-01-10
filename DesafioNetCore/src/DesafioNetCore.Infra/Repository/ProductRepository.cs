@@ -54,5 +54,10 @@ namespace DesafioNetCore.Infra.Repository
         {
             return await _appDbContext.Products.SingleOrDefaultAsync(x => x.BarCode == barCode) == null;
         }
+
+        public async Task<List<Product>> GetAllVendableProducts()
+        {
+            return await _appDbContext.Products.Where(x => x.CanSell == true).ToListAsync();
+        }
     }
 }

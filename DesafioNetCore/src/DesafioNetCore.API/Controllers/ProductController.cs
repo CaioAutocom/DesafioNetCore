@@ -65,6 +65,11 @@ namespace DesafioNetCore.API.Controllers
         {
             return Ok(_mapper.Map<GetProductsResponse>(await _productService.GetByShortIdAsync(shortid)));
         }
+        [HttpGet("get-all-vendable-products")]
+        public async Task<IActionResult> GetAllVendable()
+        {
+            return Ok(_mapper.Map<List<GetProductsResponse>>(await _productService.GetAllVendableProducts()));
+        }
         [HttpDelete]
         public async Task<IActionResult> DeleteById(string shortId)
         {
