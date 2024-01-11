@@ -48,4 +48,9 @@ public class PersonService : IPersonService
 
         return deleted;
     }
+
+    public async Task<IEnumerable<Person>> GetClientsAsync()
+    {
+        return await _unitOfWork.PersonRepository.GetClientsAsync();
+    }
 }

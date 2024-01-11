@@ -34,7 +34,7 @@ namespace DesafioNetCore.API.Controllers.Auth
         public async Task<ActionResult> Register(RegisterUserRequest registerUser)
         {
             // validação para caso haja usuario logado e ele for manager, não pode cadastrar novos usuarios.
-            if (User.Identity.IsAuthenticated && User.IsInRole("MANAGER")) return Forbid("Manager cannot register any user");
+            if (User.Identity.IsAuthenticated && User.IsInRole("MANAGER")) return CustomResponse("Manager cannot register any user");
             
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 

@@ -4,6 +4,7 @@ using DesafioNetCore.Application.CQRS;
 using DesafioNetCore.Domain.Entities;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioNetCore.API.Controllers;
@@ -26,8 +27,9 @@ public class PersonController : MainController
 
 
     [HttpPost]
+    [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
     public async Task<IActionResult> Add(CreatePersonRequest request)
-    {
+    {  
         var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(request));
 
         if (!validationResult.IsValid)
@@ -39,7 +41,8 @@ public class PersonController : MainController
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateUnit(string shortId, UpdatePersonRequest updateRequest)
+    [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
+    public async Task<IActionResult> UpdatePerson(string shortId, UpdatePersonRequest updateRequest)
     {
         var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(updateRequest));
 
@@ -61,6 +64,12 @@ public class PersonController : MainController
     public async Task<IActionResult> GetByShortId(string shortid)
     {
         return Ok(_mapper.Map<GetPersonsResponse>(await _personService.GetByShortIdAsync(shortid)));
+    }
+
+    [HttpGet("get-clients")]
+    public async Task<IActionResult> GetClients()
+    {
+        return Ok(_mapper.Map<List<GetPersonsResponse>>(await _personService.GetClientsAsync()));
     }
     [HttpDelete]
     public async Task<IActionResult> DeleteById(string shortId)

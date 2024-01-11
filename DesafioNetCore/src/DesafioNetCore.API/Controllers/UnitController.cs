@@ -3,6 +3,7 @@ using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Application.CQRS;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioNetCore.API.Controllers
@@ -25,6 +26,7 @@ namespace DesafioNetCore.API.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
         public async Task<IActionResult> Add(CreateUnitRequest request)
         {
             var validationResult = await _validator.ValidateAsync(_mapper.Map<Domain.Entities.Unit>(request));
@@ -39,6 +41,7 @@ namespace DesafioNetCore.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
         public async Task<IActionResult> UpdateUnit(string acronym, [FromBody] UpdateUnitRequest updateRequest)
         {
             var validationResult = await _validator.ValidateAsync(_mapper.Map<Domain.Entities.Unit>(updateRequest));
@@ -64,6 +67,7 @@ namespace DesafioNetCore.API.Controllers
             return Ok(_mapper.Map<GetUnitsResponse>(await _unitService.GetByShortIdAsync(shortid)));
         }
         [HttpDelete]
+        [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
         public async Task<IActionResult> DeleteById(string shortId)
         {
             return Ok(await _mediator.Send(shortId));

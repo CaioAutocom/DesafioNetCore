@@ -2,10 +2,10 @@
 using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Application.CQRS;
 using DesafioNetCore.Application.CQRS.Request.Product;
-using DesafioNetCore.Application.Services;
 using DesafioNetCore.Domain.Entities;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioNetCore.API.Controllers
@@ -41,8 +41,10 @@ namespace DesafioNetCore.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateUnit(string shortId, [FromBody] UpdateProductRequest updateRequest)
+        public async Task<IActionResult> UpdateProduct(string shortId, [FromBody] UpdateProductRequest updateRequest)
         {
+            if (updateRequest.CanSell && User.Identity.IsAuthenticated && User.IsInRole("SELLER")) return CustomResponse("Sellers are not allowed to set the property 'CanSell' as true.");
+            if (!updateRequest.Active && User.Identity.IsAuthenticated && User.IsInRole("SELLER")) return CustomResponse("Sellers are not allowed to unable a product.");
             var validationResult = await _validator.ValidateAsync(_mapper.Map<Product>(updateRequest));
 
             if (!validationResult.IsValid)
@@ -71,6 +73,7 @@ namespace DesafioNetCore.API.Controllers
             return Ok(_mapper.Map<List<GetProductsResponse>>(await _productService.GetAllVendableProducts()));
         }
         [HttpDelete]
+        [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
         public async Task<IActionResult> DeleteById(string shortId)
         {
             return Ok(await _mediator.Send(shortId));

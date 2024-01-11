@@ -59,4 +59,9 @@ public class PersonRepository : IPersonRepository
     {
         return await _context.Persons.SingleOrDefaultAsync(x => x.AlternativeIdentifier == alternativeCode);
     }
+
+    public async Task<IEnumerable<Person>> GetClientsAsync()
+    {
+        return await _context.Persons.Where(x => x.CanBuy).ToListAsync();
+    }
 }

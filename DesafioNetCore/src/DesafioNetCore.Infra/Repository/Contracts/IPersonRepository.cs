@@ -6,4 +6,5 @@ public interface IPersonRepository : IRepositoryBase<Person>
 {
     Task<Person> GetByDocAsync(string doc);
     Task<Person> GetByAlternativeCode(string alternativeCode);
+    Task<IEnumerable<Person>> GetClientsAsync();
 }
