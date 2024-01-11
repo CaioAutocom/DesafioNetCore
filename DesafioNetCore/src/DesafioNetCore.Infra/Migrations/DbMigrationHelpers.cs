@@ -26,8 +26,13 @@ public static class DbMigrationHelpers
 
         if (env.IsDevelopment())
         {
-            await context.Database.MigrateAsync();
-            await identityContext.Database.MigrateAsync();
+            // uso do postgres e sqlite
+            //await context.Database.MigrateAsync();
+            //await identityContext.Database.MigrateAsync();
+            
+            // uso do in memory
+            context.Database.EnsureCreated();
+            identityContext.Database.EnsureCreated();
 
             await EnsureSeedRoles(identityContext);
         }

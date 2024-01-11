@@ -18,7 +18,7 @@ namespace DesafioNetCore.Application.Validation
 
             RuleFor(x => x.Document).IsValidCPF().Unless(x => string.IsNullOrWhiteSpace(x.Document) || (!string.IsNullOrWhiteSpace(x.Document) && x.Document.Length >= 11)).WithMessage("The given document is not a valid CPF.");
 
-            RuleFor(x => x.Document).MustAsync(DocumentDoesNotExists).WithMessage("The document given it's already on database.");
+            RuleFor(x => x.Document).MustAsync(DocumentDoesNotExists).WithMessage("The given document it's already on database.");
             RuleFor(x => x.AlternativeIdentifier).MustAsync(AlternativeCodeDoesNotExist).WithMessage("The alternative Identifier given it's already on database.");
 
         }
