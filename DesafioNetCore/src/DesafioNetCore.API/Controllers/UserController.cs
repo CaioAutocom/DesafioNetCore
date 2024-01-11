@@ -11,6 +11,7 @@ namespace DesafioNetCore.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
     public class UserController : ControllerBase
     {   
         private readonly IUserService _userService;
@@ -22,12 +23,6 @@ namespace DesafioNetCore.API.Controllers
             _mapper = mapper;
         }
 
-        //[Authorize(Roles = "ADMINISTRATOR")]
-        //[HttpGet]
-        //public IEnumerable<User> GetAll()
-        //{
-        //    return _userService.GetAllAsync();
-        //}
         [HttpPost]
         public void Add(User user)
         {
