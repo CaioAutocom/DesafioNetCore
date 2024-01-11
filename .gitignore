@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/DesafioNetCore/src/DesafioNetCore.API/DesafioNetCore_Identity.db
+/DesafioNetCore/src/DesafioNetCore.API/DesafioNetCore_Identity.db-shm
+/DesafioNetCore/src/DesafioNetCore.API/DesafioNetCore_Identity.db-wal
+/DesafioNetCore/src/DesafioNetCore.API/DesafioNetCore_main.db
+/DesafioNetCore/src/DesafioNetCore.API/DesafioNetCore_main.db-shm
+/DesafioNetCore/src/DesafioNetCore.API/DesafioNetCore_main.db-wal
