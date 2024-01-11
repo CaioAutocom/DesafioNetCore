@@ -1,17 +1,20 @@
 ﻿using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Application.Contracts.Common;
 using DesafioNetCore.Domain.Entities;
+using DesafioNetCore.Entities.Enums;
 using DesafioNetCore.Infra.Repository.Contracts;
+using Microsoft.AspNetCore.Identity;
 
 namespace DesafioNetCore.Application;
 
 public class UserService : IUserService
 {
     private readonly IUnitOfWork _uow;
-
-    public UserService(IUnitOfWork uow)
+    private readonly UserManager<User> _userManager;
+    public UserService(IUnitOfWork uow, UserManager<User> userManager)
     {
         _uow = uow;
+        _userManager = userManager;
     }
 
     public void AddAsync(User user)
@@ -19,24 +22,15 @@ public class UserService : IUserService
         _uow.UserRespository.AddAsync(user);
         _uow.CommitIdentity();
     }
+
     public Task<bool> DeleteAsync(string shortId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<User>> GetAll()
-    {
-        return await _uow.UserRespository.GetAllAsync();
-    }
-
     public Task<IEnumerable<User>> GetAllAsync()
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<User> GetByIdAsyn(Guid guid)
-    {
-        throw new NotImplementedException();
+        return _uow.UserRespository.GetAllAsync();
     }
 
     public Task<User> GetByIdAsync(Guid guid)
@@ -44,17 +38,12 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    public Task<User> GetByShortId(string shortId)
+    public async Task<IList<User>> GetByRolesAsync(EAccessPriority accessPriority)
     {
-        throw new NotImplementedException();
+        return await _userManager.GetUsersInRoleAsync(accessPriority.ToString());
     }
 
     public Task<User> GetByShortIdAsync(string shortId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<User> Update(User entity)
     {
         throw new NotImplementedException();
     }

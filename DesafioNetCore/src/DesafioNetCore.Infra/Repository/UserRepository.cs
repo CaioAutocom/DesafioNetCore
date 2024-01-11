@@ -1,10 +1,11 @@
 ﻿using DesafioNetCore.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DesafioNetCore.Infra.Repository;
 
 public class UserRepository : IUserRespository
 {
-    private readonly IdentityContext _context;
+    private readonly IdentityContext _context; 
 
     public UserRepository(IdentityContext context)
     {
@@ -26,9 +27,9 @@ public class UserRepository : IUserRespository
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<User>> GetAllAsync()
+    public async Task<IEnumerable<User>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _context.Users.ToListAsync();
     }
 
     public Task<User> GetByIdAsync(Guid guid)
@@ -45,4 +46,5 @@ public class UserRepository : IUserRespository
     {
         throw new NotImplementedException();
     }
+
 }

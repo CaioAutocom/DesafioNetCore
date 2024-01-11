@@ -5,5 +5,4 @@ namespace DesafioNetCore.Infra.Repository;
 
 public interface IUserRespository : IRepositoryBase<User>
 {
-
 }

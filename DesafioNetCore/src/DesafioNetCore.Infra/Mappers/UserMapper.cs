@@ -1,7 +1,6 @@
 ﻿using DesafioNetCore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace DesafioNetCore.Infra.Mappers;
 
