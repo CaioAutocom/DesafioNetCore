@@ -35,6 +35,7 @@ namespace DesafioNetCore.Application.Extensions
 
             #region Users
             CreateMap<User, GetUsersResponse>().ReverseMap();
+            CreateMap<User, RegisterUserRequest>().ReverseMap();
             #endregion
         }
     }

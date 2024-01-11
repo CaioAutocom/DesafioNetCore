@@ -1,4 +1,5 @@
-﻿using DesafioNetCore.API.Extensions;
+﻿using AutoMapper;
+using DesafioNetCore.API.Extensions;
 using DesafioNetCore.Application.CQRS;
 using DesafioNetCore.Application.CQRS.Request.User;
 using DesafioNetCore.Domain.Entities;
@@ -20,33 +21,31 @@ namespace DesafioNetCore.API.Controllers.Auth
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly AppSettings _appSettings;
+        private readonly IMapper _mapper;
 
         public AuthController(UserManager<User> userManager,
             SignInManager<User> signInManager,
-            IOptions<AppSettings> appSettings)
+            IOptions<AppSettings> appSettings,
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _appSettings = appSettings.Value;
+            _mapper = mapper;
         }
 
         [HttpPost("new-account")]
         public async Task<ActionResult> Register(RegisterUserRequest registerUser)
         {
             // validação para caso haja usuario logado e ele for manager, não pode cadastrar novos usuarios.
-            if (User.Identity.IsAuthenticated && User.IsInRole("MANAGER")) return CustomResponse("Manager cannot register any user");
+            if (User.Identity.IsAuthenticated && User.IsInRole("MANAGER")) return CustomResponse("Manager cannot register any user.");
             
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var user = new User
-            {
-                Name = registerUser.Name,
-                Document = registerUser.Document,
-                Nickname = registerUser.NickName,
-                UserName = registerUser.Email,
-                Email = registerUser.Email,
-                EmailConfirmed = true
-            };
+            
+            var user = _mapper.Map<User>(registerUser);
+            user.EmailConfirmed = true;
+            user.UserName = registerUser.Email;
 
             var result = await _userManager.CreateAsync(user, registerUser.Password);
 
