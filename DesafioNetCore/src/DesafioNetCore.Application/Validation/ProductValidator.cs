@@ -22,7 +22,14 @@ namespace DesafioNetCore.Application.Validation
                 .MustAsync(AcronymExists).WithMessage("Acronym does not exists in database. You need to create one first and then a product.");
         }
         private bool PositiveValue(decimal price) => price >= 0m;
-        private async Task<bool> BarCodeDoesNotExist(string barCode, CancellationToken cancellationToken) => await _unitOfWork.ProductRepository.BarCodeDoesNotExistAsync(barCode);
+        private async Task<bool> BarCodeDoesNotExist(string barCode, CancellationToken cancellationToken)
+        {
+            // entendi que se o código estiver vazio poderá ser cadastrado, mas caso haja informação, ele deve ser validado.
+            // Código Barras não poderão se repetir ou podem ser vazios.
+            if (string.IsNullOrWhiteSpace(barCode)) return true;
+            
+            return await _unitOfWork.ProductRepository.BarCodeDoesNotExistAsync(barCode);
+        }
         private async Task<bool> AcronymExists (string acronym, CancellationToken cancellationToken) => await _unitOfWork.UnitRepository.GetByAcronymAsync(acronym) != null;
     }
 }
