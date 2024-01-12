@@ -17,7 +17,7 @@ public class CreatePersonHandler : IRequestHandler<CreatePersonRequest, CreatePe
 
     public async Task<CreatePersonResponse> Handle(CreatePersonRequest request, CancellationToken cancellationToken)
     {
-        var newUnit = _mapper.Map<Person>(request);
-        return _mapper.Map<CreatePersonResponse>(await _personService.AddAsync(newUnit));
+        var newPerson = _mapper.Map<Person>(request);
+        return _mapper.Map<CreatePersonResponse>(await _personService.AddAsync(newPerson));
     }
 }
