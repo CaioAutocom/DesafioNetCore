@@ -6,9 +6,9 @@ using System.Text;
 
 namespace DesafioNetCore.API.Services.Configuration
 {
-    public static class JwtConfig
+    internal static class JwtConfig
     {
-        public static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
+        internal static IServiceCollection AddJwtConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             // utilizando os dados do appsettings para popular a classe appsettings criada
             var appSettingsSection = configuration.GetSection("AppSettings");

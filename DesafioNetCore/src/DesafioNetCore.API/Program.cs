@@ -37,6 +37,8 @@ app.UseHttpsRedirection();
 // Utilizando o Identity para autenticar
 app.UseAuthentication();
 app.UseAuthorization();
+// resolvendo a dependencia do meu middleware de exceção
+app.UseExceptionMiddleware();
 
 app.MapControllers();
 

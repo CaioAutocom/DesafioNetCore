@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DesafioNetCore.API.Services.Configuration
 {
-    public static class IdentityConfig
+    internal static class IdentityConfig
     {
-        public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
+        internal static IServiceCollection AddIdentityConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDefaultIdentity<User>() // minha entidade padrão para modelo de controle do identity
              .AddRoles<IdentityRole>()

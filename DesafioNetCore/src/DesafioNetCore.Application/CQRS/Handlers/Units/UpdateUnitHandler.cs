@@ -19,18 +19,13 @@ public class UpdateUnitHandler : IRequestHandler<UpdateUnitRequest, UpdateUnitRe
     {
         var existingUnit = await _unitService.GetByAcronymAsync(request.Acronym);
 
-        if (existingUnit == null)
-        {
-           throw new ArgumentException("tratar essa parte aqui depois");
-        }
-        
+        if (existingUnit == null) throw new Exception("Something went wrong. There is no any register with the given request.");
+            
         // atualiza a unidade existente com a que veio no request
         _mapper.Map(request, existingUnit);
 
         await _unitService.UpdateAsync(existingUnit);
 
-
-        //tratarrr
-        return new UpdateUnitResponse() ;
+        return _mapper.Map(existingUnit, new UpdateUnitResponse());
     }
 }

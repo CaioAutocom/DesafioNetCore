@@ -41,7 +41,7 @@ namespace DesafioNetCore.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateProduct(string shortId, [FromBody] UpdateProductRequest updateRequest)
+        public async Task<IActionResult> UpdateProduct(string shortId, UpdateProductRequest updateRequest)
         {
             if (updateRequest.CanSell && User.Identity.IsAuthenticated && User.IsInRole("SELLER")) return CustomResponse("Sellers are not allowed to set the property 'CanSell' as true.");
             if (!updateRequest.Active && User.Identity.IsAuthenticated && User.IsInRole("SELLER")) return CustomResponse("Sellers are not allowed to unable a product.");

@@ -34,7 +34,15 @@ public abstract class MainController : Controller
     {
         return !Errors.Any();
     }
+    /// <summary>
+    /// Método para tratar os erros padrões do ModelState
+    /// </summary>
+    /// <param name="error"></param>
     protected void AddErrors(string error) => Errors.Add(error);
+    /// <summary>
+    /// Método para tratar os erros da validação via FluentValidation.
+    /// </summary>
+    /// <param name="errors"></param>
     protected void AddErrors(List<FluentValidation.Results.ValidationFailure> errors)
     {
         foreach (var error in errors)

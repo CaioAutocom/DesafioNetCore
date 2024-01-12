@@ -17,19 +17,15 @@ public class UpdatePersonHandler : IRequestHandler<UpdatePersonRequest, UpdatePe
 
     public async Task<UpdatePersonResponse> Handle(UpdatePersonRequest request, CancellationToken cancellationToken)
     {
-        var existingoPerson = await _personService.GetByShortIdAsync(request.ShortId);
+        var existingPerson = await _personService.GetByShortIdAsync(request.ShortId);
 
-        if (existingoPerson == null)
-        {
-            throw new ArgumentException("tratar essa parte aqui depois");
-        }
+        if (existingPerson == null) throw new Exception("Something went wrong. There is no any register with the given request.");
+     
+        // atualiza a pessoa existente com a que veio no request
+        _mapper.Map(request, existingPerson);
 
-        // atualiza a unidade existente com a que veio no request
-        _mapper.Map(request, existingoPerson);
-
-        await _personService.UpdateAsync(existingoPerson);
-
-        //tratarrr
-        return new UpdatePersonResponse();
+        await _personService.UpdateAsync(existingPerson);
+        // tirar dúvida se essa é a prática correta, onde recebo o request, carrego a pessoa, mapeio o request para a pessoa que está sendo trackeada, e após o update, mapeio o request para um novo response.
+        return _mapper.Map(existingPerson, new UpdatePersonResponse());
     }
 }

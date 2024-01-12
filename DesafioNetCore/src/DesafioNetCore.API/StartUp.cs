@@ -1,7 +1,6 @@
 ﻿
 using DesafioNetCore.API.Services.Configuration;
 using DesafioNetCore.Application.Validation;
-using DesafioNetCore.Domain.Entities;
 using FluentValidation;
 
 
