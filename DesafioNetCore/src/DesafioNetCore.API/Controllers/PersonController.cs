@@ -42,7 +42,7 @@ public class PersonController : MainController
 
     [HttpPut]
     [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
-    public async Task<IActionResult> UpdatePerson(string shortId, UpdatePersonRequest updateRequest)
+    public async Task<IActionResult> UpdatePerson(UpdatePersonRequest updateRequest)
     {
         var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(updateRequest));
 

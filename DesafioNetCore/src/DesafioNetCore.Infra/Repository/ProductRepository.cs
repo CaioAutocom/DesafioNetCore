@@ -1,6 +1,7 @@
 ﻿using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DesafioNetCore.Infra.Repository
 {
@@ -58,6 +59,11 @@ namespace DesafioNetCore.Infra.Repository
         public async Task<List<Product>> GetAllVendableProducts()
         {
             return await _appDbContext.Products.Where(x => x.CanSell == true).ToListAsync();
+        }
+
+        public async Task<Product> GetQueryable(Expression<Func<Product, bool>> query)
+        {
+            return await _appDbContext.Products.SingleOrDefaultAsync(query);
         }
     }
 }

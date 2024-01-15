@@ -1,6 +1,7 @@
 ﻿using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DesafioNetCore.Infra.Repository;
 
@@ -64,4 +65,10 @@ public class PersonRepository : IPersonRepository
     {
         return await _context.Persons.Where(x => x.CanBuy).ToListAsync();
     }
+
+    public async Task<Person> GetQueryable(Expression<Func<Person, bool>> query)
+    {
+        return await _context.Persons.SingleOrDefaultAsync(query);
+    }
+
 }

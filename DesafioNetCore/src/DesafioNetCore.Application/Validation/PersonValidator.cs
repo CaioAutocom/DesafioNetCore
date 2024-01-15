@@ -1,4 +1,5 @@
 ﻿using DesafioNetCore.Domain.Entities;
+using DesafioNetCore.Infra.Repository;
 using DesafioNetCore.Infra.Repository.Contracts;
 using FluentValidation;
 using System.Xml.Linq;
@@ -22,14 +23,41 @@ namespace DesafioNetCore.Application.Validation
             RuleFor(x => x.AlternativeIdentifier).MustAsync(AlternativeCodeDoesNotExist).WithMessage("The alternative Identifier given it's already on database.");
 
         }
-        private async Task<bool> DocumentDoesNotExists(string document,CancellationToken cancellationToken)
+        private async Task<bool> DocumentDoesNotExistsInsert(Person person, string document, CancellationToken cancellationToken)
         {
             // há um ponto no desafio que diz que o documento pode ser vazio, mas não pode ser duplicado no banco, então se for vazio nem é necessário ir no banco verificar se existe um cadastro vazio.
             if (string.IsNullOrWhiteSpace(document)) return true;
 
-            return await _unitOfWork.PersonRepository.GetByDocAsync(document) == null;
+            return await _unitOfWork.PersonRepository.GetQueryable(x => x.Document == document) == null;
+
         }
 
-        private async Task<bool> AlternativeCodeDoesNotExist(string alternativeCode, CancellationToken cancellationToken) => await _unitOfWork.PersonRepository.GetByAlternativeCode(alternativeCode) == null;
+        private async Task<bool> DocumentDoesNotExists(Person person, string document,CancellationToken cancellationToken)
+        {
+            // há um ponto no desafio que diz que o documento pode ser vazio, mas não pode ser duplicado no banco, então se for vazio nem é necessário ir no banco verificar se existe um cadastro vazio.
+            if (string.IsNullOrWhiteSpace(document)) return true;
+
+            return await _unitOfWork.PersonRepository.GetQueryable(x => x.Id != person.Id && x.Document == document) == null;
+
+        }
+
+        private async Task<bool> AlternativeCodeDoesNotExist(Person person, string alternativeCode, CancellationToken cancellationToken) 
+        {
+            bool existingPerson = _unitOfWork.PersonRepository.GetByShortIdAsync(person.ShortId) != null;
+            bool altCodeExistDb = _unitOfWork.PersonRepository.GetQueryable(x => x.ShortId != person.ShortId && x.AlternativeIdentifier == alternativeCode) != null;
+
+
+            if (existingPerson)
+            {
+                if (!altCodeExistDb)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+
+            
+        } 
     }
 }

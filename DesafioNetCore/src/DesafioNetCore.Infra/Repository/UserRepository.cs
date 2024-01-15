@@ -1,5 +1,6 @@
 ﻿using DesafioNetCore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DesafioNetCore.Infra.Repository;
 
@@ -40,6 +41,11 @@ public class UserRepository : IUserRespository
     public Task<User> GetByShortIdAsync(string shortId)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<User> GetQueryable(Expression<Func<User, bool>> query)
+    {
+        return  await _context.Users.SingleOrDefaultAsync(query);
     }
 
     public Task<User> UpdateAsync(User entity)

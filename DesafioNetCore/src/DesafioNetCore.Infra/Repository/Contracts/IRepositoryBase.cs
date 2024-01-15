@@ -1,4 +1,4 @@
-﻿using DesafioNetCore.Domain.Entities;
+﻿using System.Linq.Expressions;
 
 namespace DesafioNetCore.Infra.Repository.Contracts;
 
@@ -10,4 +10,5 @@ public interface IRepositoryBase<T> where T : class
     Task<T> GetByShortIdAsync(string shortId);
     Task<T> UpdateAsync(T entity);
     Task<bool> DeleteAsync(string shortId);
+    Task<T> GetQueryable(Expression<Func<T, bool>> query);
 }

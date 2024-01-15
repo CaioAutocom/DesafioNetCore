@@ -1,6 +1,7 @@
 ﻿using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Repository.Contracts;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DesafioNetCore.Infra.Repository;
 
@@ -48,5 +49,10 @@ public class UnitRepository : IUnitRepository
     {
         var removed = _context.Remove(await _context.Units.SingleOrDefaultAsync(x => x.ShortId == shortId));
         return removed != null;    
+    }
+
+    public async Task<Unit> GetQueryable(Expression<Func<Unit, bool>> query)
+    {
+        return await _context.Units.SingleOrDefaultAsync(query);
     }
 }
