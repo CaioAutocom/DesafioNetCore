@@ -16,7 +16,6 @@ namespace DesafioNetCore.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateUnitHandler>());
             services.ResolveDependencies(config);
-            
 
             return services;
         }

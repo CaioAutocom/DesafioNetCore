@@ -23,16 +23,6 @@ public class IdentityContext :  IdentityDbContext<User>
 
         modelBuilder.Entity<User>()
             .HasKey(x => x.Id);
-        //modelBuilder.Entity<User>().HasData(
-        //    new User
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        AccessPriority = Entities.Enums.EAccessPriority.Administrator,
-        //        Document = "08679558648",
-        //        Email = "admin@admin.com",
-        //        Name = "admin",
-        //        Nickname = "admin",
-        //    });
     }
     public DbSet<User> Users => Set<User>();
 }

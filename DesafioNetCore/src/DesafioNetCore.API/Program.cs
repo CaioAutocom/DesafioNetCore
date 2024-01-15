@@ -1,15 +1,7 @@
 using DesafioNetCore.API;
 using DesafioNetCore.Application;
-using DesafioNetCore.Application.Contracts;
-using DesafioNetCore.Application.Services;
-using DesafioNetCore.Application.Validation;
-using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra;
 using DesafioNetCore.Infra.Migrations;
-using DesafioNetCore.Infra.Repository;
-using DesafioNetCore.Infra.Repository.Contracts;
-using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

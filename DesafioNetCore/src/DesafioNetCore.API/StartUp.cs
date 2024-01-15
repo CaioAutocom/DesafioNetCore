@@ -17,7 +17,6 @@ public static class StartUp
         services.AddJwtConfiguration(config);
 
         services.AddValidatorsFromAssemblyContaining<UnitValidator>();
-        //services.AddScoped<IValidator<Unit>, UnitValidator>();
         return services;
     }
 }

@@ -33,7 +33,7 @@ namespace DesafioNetCore.API.Controllers.Auth
             _appSettings = appSettings.Value;
             _mapper = mapper;
         }
-
+ 
         [HttpPost("new-account")]
         public async Task<ActionResult> Register(RegisterUserRequest registerUser)
         {
