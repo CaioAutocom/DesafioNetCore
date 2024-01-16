@@ -57,7 +57,7 @@ namespace DesafioNetCore.Application.Validation
                 return false;
             }
 
-            
+            return true;
         } 
     }
 }

@@ -1,4 +1,5 @@
-﻿using DesafioNetCore.Entities.Enums;
+﻿using DesafioNetCore.Domain.Entities;
+using DesafioNetCore.Entities.Enums;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -20,10 +21,10 @@ public static class DbMigrationHelpers
     {
         using var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope();
         var env = scope.ServiceProvider.GetRequiredService<IWebHostEnvironment>();
-
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         var identityContext = scope.ServiceProvider.GetRequiredService<IdentityContext>();
-
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+       
         if (env.IsDevelopment())
         {
             // uso do postgres e sqlite
@@ -34,10 +35,11 @@ public static class DbMigrationHelpers
             //context.Database.EnsureCreated();
             //identityContext.Database.EnsureCreated();
 
-            await EnsureSeedRoles(identityContext);
+            await EnsureSeedRolesAsync(identityContext);
+            await EnsureSeedInitialUserAsync(identityContext, userManager);
         }
     }
-    private static async Task EnsureSeedRoles(IdentityContext identityContext)
+    private static async Task EnsureSeedRolesAsync(IdentityContext identityContext)
     {
         if (identityContext.Roles.Any()) return;
 
@@ -53,5 +55,27 @@ public static class DbMigrationHelpers
             identityContext.Roles.Add(role);
         }
         await identityContext.SaveChangesAsync();
+    }
+
+    private static async Task EnsureSeedInitialUserAsync(IdentityContext identityContext, UserManager<User> userManager)
+    {
+        if (identityContext.Users.Any()) return;
+
+        User user = new()
+        {
+            UserName = "admin@admin.com",
+            Document = "08679558648",
+            EmailConfirmed = true,
+            Name = "administrator",
+            Nickname = "admin@admin.com",
+            Email = "admin@admin.com"
+        };
+
+        var result = await userManager.CreateAsync(user, "administrator");
+
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(user, EAccessPriority.Administrator.ToString().ToUpper());
+        }
     }
 }

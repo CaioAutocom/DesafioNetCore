@@ -3,6 +3,7 @@ using DesafioNetCore.API.Extensions;
 using DesafioNetCore.Application.CQRS;
 using DesafioNetCore.Application.CQRS.Request.User;
 using DesafioNetCore.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -33,13 +34,11 @@ namespace DesafioNetCore.API.Controllers.Auth
             _appSettings = appSettings.Value;
             _mapper = mapper;
         }
- 
+
+        [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
         [HttpPost("new-account")]
         public async Task<ActionResult> Register(RegisterUserRequest registerUser)
         {
-            // validação para caso haja usuario logado e ele for manager, não pode cadastrar novos usuarios.
-            if (User.Identity.IsAuthenticated && User.IsInRole("MANAGER")) return CustomResponse("Manager cannot register any user.");
-            
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             
