@@ -10,7 +10,6 @@ public static class StartUp
 {
     public static IServiceCollection AddApiServices (this IServiceCollection services, IConfiguration config)
     {
-
         // utiliza as configurações do identity
         services.AddIdentityConfiguration(config);
         // utiliza as configurações de token

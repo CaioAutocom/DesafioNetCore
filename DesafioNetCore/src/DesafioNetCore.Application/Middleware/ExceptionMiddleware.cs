@@ -1,14 +1,16 @@
 ﻿using DesafioNetCore.Domain.Entities.Common;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Net.Http;
 using System.Text.Json;
 
 namespace DesafioNetCore.Application.Middleware;
 
 public class ExceptionMiddleware : IMiddleware
 {
-	async Task IMiddleware.InvokeAsync(HttpContext context, RequestDelegate next)
+	public async Task InvokeAsync(HttpContext context, RequestDelegate next)
 	{
 		try
 		{
@@ -21,14 +23,28 @@ public class ExceptionMiddleware : IMiddleware
 				ErrorId = Guid.NewGuid().ToString(),
 				Exception = ex.Message.Trim(),
 			};
+			
+            var problemDetails = new ProblemDetails
+            {
+                Instance = context.Request.Path
+            };
 
-			errorResult.StatusCode = (int)GetErrorStatusCode(ex);
+            if (ex is ValidationException validationException)
+            {
+                var validationErrors = validationException.Errors
+                .Select(error => error.ErrorMessage).ToList();
+                problemDetails.Extensions.Add("errors", validationErrors);
+                problemDetails.Title = "one or more validation errors occurred.";
+                problemDetails.Status = StatusCodes.Status400BadRequest;
+            }
+
+            errorResult.StatusCode = (int)GetErrorStatusCode(ex);
 
 			HttpResponse response = context.Response;
 			response.ContentType = "application/json";
 			response.StatusCode = errorResult.StatusCode;
 
-			await response.WriteAsync(JsonSerializer.Serialize(errorResult));
+			await response.WriteAsJsonAsync(problemDetails);
 		}
 	}
 
@@ -40,10 +56,11 @@ public class ExceptionMiddleware : IMiddleware
 				return HttpStatusCode.NotFound;
             case InvalidOperationException:
             case ValidationException:
-				return HttpStatusCode.BadRequest;
+				return HttpStatusCode.UnprocessableEntity;
 			case UnauthorizedAccessException:
 				return HttpStatusCode.Unauthorized;
-			default:
+     
+            default:
 				return HttpStatusCode.InternalServerError;
         }
 	}

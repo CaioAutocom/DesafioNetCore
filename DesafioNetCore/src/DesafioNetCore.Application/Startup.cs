@@ -14,7 +14,11 @@ namespace DesafioNetCore.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateUnitHandler>());
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssemblyContaining<CreateUnitHandler>();
+                cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            });
             services.ResolveDependencies(config);
 
             return services;

@@ -15,28 +15,25 @@ public class PersonController : MainController
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
     private readonly IPersonService _personService;
-    private readonly IValidator<Person> _validator;
-
-    public PersonController(IMapper mapper, IMediator mediator, IPersonService personService, IValidator<Person> validator)
+ 
+    public PersonController(IMapper mapper, IMediator mediator, IPersonService personService)
     {
         _mapper = mapper;
         _mediator = mediator;
         _personService = personService;
-        _validator = validator;
     }
-
 
     [HttpPost]
     [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
     public async Task<IActionResult> Add(CreatePersonRequest request)
     {  
-        var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(request));
+        //var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(request));
 
-        if (!validationResult.IsValid)
-        {
-            AddErrors(validationResult.Errors);
-            return CustomResponse(validationResult);
-        }
+        //if (!validationResult.IsValid)
+        //{
+        //    AddErrors(validationResult.Errors);
+        //    return CustomResponse(validationResult);
+        //}
         return Ok(await _mediator.Send(request));
     }
 
@@ -44,13 +41,13 @@ public class PersonController : MainController
     [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
     public async Task<IActionResult> UpdatePerson(UpdatePersonRequest updateRequest)
     {
-        var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(updateRequest));
+        //var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(updateRequest));
 
-        if (!validationResult.IsValid)
-        {
-            AddErrors(validationResult.Errors);
-            return CustomResponse(validationResult);
-        }
+        //if (!validationResult.IsValid)
+        //{
+        //    AddErrors(validationResult.Errors);
+        //    return CustomResponse(validationResult);
+        //}
         var updateResponse = await _mediator.Send(updateRequest);
 
         return Ok(updateResponse);
