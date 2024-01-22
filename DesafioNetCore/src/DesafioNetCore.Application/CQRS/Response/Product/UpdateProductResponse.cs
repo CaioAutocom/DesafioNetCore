@@ -5,7 +5,6 @@ namespace DesafioNetCore.Application.CQRS;
 public class UpdateProductResponse : IRequest<UpdateProductResponse>
 {
     public string ShortId { get; set; } = string.Empty;
-
     public string FullDescription { get; set; } = string.Empty;
     public string ShortDescription { get; set; } = string.Empty;
     public decimal Price { get; set; }

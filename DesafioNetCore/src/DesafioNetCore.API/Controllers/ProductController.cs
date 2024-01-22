@@ -30,32 +30,17 @@ namespace DesafioNetCore.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(CreateProductRequest request)
         {
-            var validationResult = await _validator.ValidateAsync(_mapper.Map<Product>(request));
-
-            if (!validationResult.IsValid)
-            {
-                AddErrors(validationResult.Errors);
-                return CustomResponse(validationResult);
-            }
             return Ok(await _mediator.Send(request));
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateProduct(string shortId, UpdateProductRequest updateRequest)
+        public async Task<IActionResult> UpdateProduct(UpdateProductRequest updateRequest)
         {
+            // verificar a melhor opção para tratar esse caso.
             if (updateRequest.CanSell && User.Identity.IsAuthenticated && User.IsInRole("SELLER")) return CustomResponse("Sellers are not allowed to set the property 'CanSell' as true.");
             if (!updateRequest.Active && User.Identity.IsAuthenticated && User.IsInRole("SELLER")) return CustomResponse("Sellers are not allowed to unable a product.");
-            var validationResult = await _validator.ValidateAsync(_mapper.Map<Product>(updateRequest));
 
-            if (!validationResult.IsValid)
-            {
-                AddErrors(validationResult.Errors);
-                return CustomResponse(validationResult);
-            }
-
-            var updateResponse = await _mediator.Send(updateRequest);
-
-            return Ok(updateResponse);
+            return Ok(await _mediator.Send(updateRequest));
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()

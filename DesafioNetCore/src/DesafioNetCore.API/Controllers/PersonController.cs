@@ -32,8 +32,7 @@ public class PersonController : MainController
     [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
     public async Task<IActionResult> UpdatePerson(UpdatePersonRequest updateRequest)
     {
-        var updateResponse = await _mediator.Send(updateRequest);
-        return Ok(updateResponse);
+        return Ok(await _mediator.Send(updateRequest));
     }
     [HttpGet]
     public async Task<IActionResult> GetAll()
@@ -52,8 +51,8 @@ public class PersonController : MainController
         return Ok(_mapper.Map<List<GetPersonsResponse>>(await _personService.GetClientsAsync()));
     }
     [HttpDelete]
-    public async Task<IActionResult> DeleteById(string shortId)
+    public async Task<IActionResult> DeleteById(DeleteRequest request)
     {
-        return Ok(await _mediator.Send(shortId));
+        return Ok(await _mediator.Send(request));
     }
 }

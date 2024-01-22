@@ -1,15 +1,14 @@
 ﻿using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Repository.Contracts;
 using FluentValidation;
-using System.Runtime.CompilerServices;
 
-namespace DesafioNetCore.Application.Validation
+namespace DesafioNetCore.Application.Validation.CreateProductValidator.Create
 {
-    public class ProductValidator : AbstractValidator<Product>
+    public class CreateProductValidator : AbstractValidator<Product>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductValidator(IUnitOfWork unitOfWork)
+        public CreateProductValidator(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
 
@@ -27,9 +26,9 @@ namespace DesafioNetCore.Application.Validation
             // entendi que se o código estiver vazio poderá ser cadastrado, mas caso haja informação, ele deve ser validado.
             // Código Barras não poderão se repetir ou podem ser vazios.
             if (string.IsNullOrWhiteSpace(barCode)) return true;
-            
+
             return await _unitOfWork.ProductRepository.BarCodeDoesNotExistAsync(barCode);
         }
-        private async Task<bool> AcronymExists (string acronym, CancellationToken cancellationToken) => await _unitOfWork.UnitRepository.GetByAcronymAsync(acronym) != null;
+        private async Task<bool> AcronymExists(string acronym, CancellationToken cancellationToken) => await _unitOfWork.UnitRepository.GetByAcronymAsync(acronym) != null;
     }
 }

@@ -17,4 +17,8 @@
     <ProjectReference Include="..\DesafioNetCore.Infra\DesafioNetCore.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Validation\CreateProductValidator\Update\" />
+  </ItemGroup>
+
 </Project>

@@ -4,6 +4,7 @@ using MediatR;
 namespace DesafioNetCore.Application.CQRS;
 public class GetProductsResponse : IRequest<Product>
 {
+    public string ShortId { get; set; } = string.Empty;
     public required string FullDescription { get; set; } = string.Empty;
     public required string ShortDescription { get; set; } = string.Empty;
 
@@ -13,5 +14,5 @@ public class GetProductsResponse : IRequest<Product>
     public bool CanSell { get; set; }
     public bool Active { get; set; }
     public required string Acronym { get; set; } = string.Empty;
-    public Domain.Entities.Unit Unit { get; set; }
+    public CreateUnitResponse? Unit { get; set; }
 }

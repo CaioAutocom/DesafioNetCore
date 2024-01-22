@@ -4,7 +4,6 @@ namespace DesafioNetCore.Application.CQRS;
 
 public class CreateProductResponse : IRequest<CreateProductResponse>
 {
-    public Guid Id { get; set; }
     public string ShortId { get; set; } = string.Empty;
 
     public required string FullDescription { get; set; } = string.Empty;
