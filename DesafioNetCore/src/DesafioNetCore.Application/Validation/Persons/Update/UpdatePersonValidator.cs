@@ -1,5 +1,4 @@
 ﻿using DesafioNetCore.Application.CQRS;
-using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Infra.Repository.Contracts;
 using FluentValidation;
 
@@ -29,11 +28,11 @@ public class UpdatePersonValidator : AbstractValidator<UpdatePersonRequest>
         // há um ponto no desafio que diz que o documento pode ser vazio, mas não pode ser duplicado no banco, então se for vazio nem é necessário ir no banco verificar se existe um cadastro vazio.
         if (string.IsNullOrWhiteSpace(document)) return true;
 
-        return await _unitOfWork.PersonRepository.GetQueryable(x => x.ShortId != person.ShortId && x.Document == document) != null;
+        return await _unitOfWork.PersonRepository.GetQueryable(x => x.ShortId != person.ShortId && x.Document == document) == null;
     }
 
     private async Task<bool> AlternativeCodeDoesNotExist(UpdatePersonRequest person, string alternativeCode, CancellationToken cancellationToken)
     {
-        return _unitOfWork.PersonRepository.GetQueryable(x => x.ShortId != person.ShortId && x.AlternativeIdentifier == alternativeCode) != null;
+        return await _unitOfWork.PersonRepository.GetQueryable(x => x.ShortId != person.ShortId && x.AlternativeIdentifier == alternativeCode) == null;
     }
 }

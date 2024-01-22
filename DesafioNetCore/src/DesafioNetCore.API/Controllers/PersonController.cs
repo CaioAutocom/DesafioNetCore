@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Application.CQRS;
-using DesafioNetCore.Domain.Entities;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,13 +25,6 @@ public class PersonController : MainController
     [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
     public async Task<IActionResult> Add(CreatePersonRequest request)
     {  
-        //var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(request));
-
-        //if (!validationResult.IsValid)
-        //{
-        //    AddErrors(validationResult.Errors);
-        //    return CustomResponse(validationResult);
-        //}
         return Ok(await _mediator.Send(request));
     }
 
@@ -41,15 +32,7 @@ public class PersonController : MainController
     [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
     public async Task<IActionResult> UpdatePerson(UpdatePersonRequest updateRequest)
     {
-        //var validationResult = await _validator.ValidateAsync(_mapper.Map<Person>(updateRequest));
-
-        //if (!validationResult.IsValid)
-        //{
-        //    AddErrors(validationResult.Errors);
-        //    return CustomResponse(validationResult);
-        //}
         var updateResponse = await _mediator.Send(updateRequest);
-
         return Ok(updateResponse);
     }
     [HttpGet]
