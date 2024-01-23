@@ -47,8 +47,8 @@ namespace DesafioNetCore.Infra.Repository
 
         public async Task<bool> DeleteAsync(string shortId)
         {
-            var removed = _appDbContext.Remove(await _appDbContext.Products.SingleOrDefaultAsync(x => x.ShortId == shortId));
-            return removed != null;
+            var existingProduct = await _appDbContext.Products.SingleOrDefaultAsync(x => x.ShortId == shortId) ?? throw new Exception("Product not found.");
+            return _appDbContext.Remove(existingProduct) != null;
         }
 
         public async Task<bool> BarCodeDoesNotExistAsync(string barCode)

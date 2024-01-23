@@ -47,8 +47,8 @@ public class PersonRepository : IPersonRepository
 
     public async Task<bool> DeleteAsync(string shortId)
     {
-        var removed = _context.Remove(await _context.Persons.SingleOrDefaultAsync(x => x.ShortId == shortId));
-        return removed != null;
+        var existingPerson = await _context.Persons.SingleOrDefaultAsync(x => x.ShortId == shortId) ?? throw new Exception("Product not found.");
+        return _context.Remove(existingPerson) != null;
     }
 
     public async Task<Person> GetByDocAsync(string doc)
