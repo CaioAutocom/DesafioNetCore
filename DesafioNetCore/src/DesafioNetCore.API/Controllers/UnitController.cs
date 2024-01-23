@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Contracts;
+using DesafioNetCore.Application.Cqrs;
 using DesafioNetCore.Application.CQRS;
 using FluentValidation;
 using MediatR;
@@ -68,9 +69,9 @@ namespace DesafioNetCore.API.Controllers
         }
         [HttpDelete]
         [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
-        public async Task<IActionResult> DeleteById(string shortId)
+        public async Task<IActionResult> DeleteById(DeleteUnitRequest request)
         {
-            return Ok(await _mediator.Send(shortId));
+            return Ok(await _mediator.Send(request));
         }
     }
 }

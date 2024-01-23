@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Contracts;
+using DesafioNetCore.Application.Cqrs;
 using DesafioNetCore.Application.CQRS;
 using DesafioNetCore.Application.CQRS.Request.Product;
-using DesafioNetCore.Domain.Entities;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,15 +16,13 @@ namespace DesafioNetCore.API.Controllers
         private readonly IProductService _productService;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        private readonly IValidator<Product> _validator;
-        public ProductController(IProductService productService, IMediator mediator, IMapper mapper, IValidator<Product> validator)
+       
+        public ProductController(IProductService productService, IMediator mediator, IMapper mapper)
         {
             _productService = productService;
             _mediator = mediator;
             _mapper = mapper;
-            _validator = validator;
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Add(CreateProductRequest request)
@@ -59,9 +56,9 @@ namespace DesafioNetCore.API.Controllers
         }
         [HttpDelete]
         [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
-        public async Task<IActionResult> DeleteById(string shortId)
+        public async Task<IActionResult> DeleteById(DeleteProductRequest request)
         {
-            return Ok(await _mediator.Send(shortId));
+            return Ok(await _mediator.Send(request));
         }
     }
 }

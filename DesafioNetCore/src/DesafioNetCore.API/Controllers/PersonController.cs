@@ -51,7 +51,7 @@ public class PersonController : MainController
         return Ok(_mapper.Map<List<GetPersonsResponse>>(await _personService.GetClientsAsync()));
     }
     [HttpDelete]
-    public async Task<IActionResult> DeleteById(DeleteRequest request)
+    public async Task<IActionResult> DeleteById(DeletePersonRequest request)
     {
         return Ok(await _mediator.Send(request));
     }

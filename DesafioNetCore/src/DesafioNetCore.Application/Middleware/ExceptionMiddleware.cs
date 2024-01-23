@@ -35,6 +35,7 @@ public class ExceptionMiddleware : IMiddleware
                 problemDetails.Status = StatusCodes.Status400BadRequest;
 
                 await response.WriteAsJsonAsync(problemDetails);
+                return;
             }
             // retorna exceções não tratadas.
             ErrorResult errorResult = new()

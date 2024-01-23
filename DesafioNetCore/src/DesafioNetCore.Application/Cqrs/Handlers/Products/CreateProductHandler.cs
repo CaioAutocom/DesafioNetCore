@@ -5,11 +5,11 @@ using MediatR;
 
 namespace DesafioNetCore.Application.CQRS;
 
-public class CreateProductHandle : IRequestHandler<CreateProductRequest, CreateProductResponse>
+public class CreateProductHandler : IRequestHandler<CreateProductRequest, CreateProductResponse>
 {
     private readonly IProductService _productService;
     private readonly IMapper _mapper;
-    public CreateProductHandle(IProductService productService, IMapper mapper)
+    public CreateProductHandler(IProductService productService, IMapper mapper)
     {
         _productService = productService;
         _mapper = mapper;
