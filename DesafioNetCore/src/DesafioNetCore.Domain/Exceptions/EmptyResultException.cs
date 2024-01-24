@@ -1,5 +1,5 @@
 ﻿namespace DesafioNetCore.Domain.Exceptions;
 
-public abstract class ExceptionBase : Exception
+public class EmptyResultException : ExceptionBase
 {
 }

@@ -1,5 +1,6 @@
 ﻿using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Domain.Entities;
+using DesafioNetCore.Domain.Exceptions;
 using DesafioNetCore.Infra.Repository.Contracts;
 
 namespace DesafioNetCore.Application.Services;
@@ -21,7 +22,8 @@ public class PersonService : IPersonService
 
     public async Task<IEnumerable<Person>> GetAllAsync()
     {
-        return await _unitOfWork.PersonRepository.GetAllAsync();
+        var persons = await _unitOfWork.PersonRepository.GetAllAsync();
+        return persons.Any() ? persons : throw new EmptyResultException();
     }
     // nao vai ser utilizado este
     public async Task<Person> GetByIdAsync(Guid guid)

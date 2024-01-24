@@ -12,9 +12,16 @@ public class CreateProductValidator : AbstractValidator<CreateProductRequest>
     {
         _unitOfWork = unitOfWork;
 
-        RuleFor(x => x.Price).NotNull().NotEmpty().WithMessage("Price must be given.").Must((price) => price >= 0m).WithMessage("Price must be a positive value.");
-        RuleFor(x => x.BarCode).NotNull().NotEmpty().WithMessage("BarCode must be given.").MustAsync(BarCodeDoesNotExist).WithMessage("The given barcode its already taken on database.");
-        RuleFor(x => x.Acronym).NotEmpty().NotNull().WithMessage("Acronym must be given.").MustAsync(AcronymExists).WithMessage("Acronym does not exists in database. You need to create one first and then a product.");
+        RuleFor(x => x.Price).NotNull().NotEmpty()
+            .WithMessage("Price must be given.")
+            .Must((price) => price >= 0m).WithMessage("Price must be a positive value.");
+
+        RuleFor(x => x.BarCode)
+            .NotNull().NotEmpty().WithMessage("BarCode must be given.")
+            .MustAsync(BarCodeDoesNotExist).WithMessage("The given barcode its already taken on database.");
+       
+        RuleFor(x => x.Acronym).NotEmpty().NotNull().WithMessage("Acronym must be given.")
+            .MustAsync(AcronymExists).WithMessage("Acronym does not exists in database. You need to create one first and then a product.");
     }
     private async Task<bool> BarCodeDoesNotExist(string barCode, CancellationToken cancellationToken)
     {

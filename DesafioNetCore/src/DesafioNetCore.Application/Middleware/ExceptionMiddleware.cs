@@ -1,4 +1,5 @@
 ﻿using DesafioNetCore.Domain.Entities.Common;
+using DesafioNetCore.Domain.Exceptions;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ public class ExceptionMiddleware : IMiddleware
 		{
             HttpResponse response = context.Response;
             response.ContentType = "application/json";
-           
+
             // retorna os erros de validação
             if (ex is ValidationException validationException)
             {
@@ -42,8 +43,13 @@ public class ExceptionMiddleware : IMiddleware
             {
                 ErrorId = Guid.NewGuid().ToString(),
                 Exception = ex.Message.Trim(),
+                
             };
 
+            if (ex is EmptyResultException emptyResultException)
+            {
+                errorResult.Errors = ["It wasn't found any register on database."];
+            }
             response.StatusCode = errorResult.StatusCode;
             errorResult.StatusCode = (int)GetErrorStatusCode(ex);
 
@@ -55,6 +61,7 @@ public class ExceptionMiddleware : IMiddleware
 	{
 		switch (exception)
 		{
+            case EmptyResultException:
 			case KeyNotFoundException:
 				return HttpStatusCode.NotFound;
             case InvalidOperationException:

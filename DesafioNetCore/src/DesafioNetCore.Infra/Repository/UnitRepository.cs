@@ -47,7 +47,7 @@ public class UnitRepository : IUnitRepository
 
     public async Task<bool> DeleteAsync(string shortId)
     {
-        var existingUnit = await _context.Units.SingleOrDefaultAsync(x => x.ShortId == shortId) ?? throw new Exception("Product not found.");
+        var existingUnit = await _context.Units.SingleOrDefaultAsync(x => x.ShortId == shortId) ?? throw new Exception("Unit not found.");
         return _context.Remove(existingUnit) != null;   
     }
 
