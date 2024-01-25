@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Contracts;
+using DesafioNetCore.Application.Cqrs;
 using DesafioNetCore.Application.CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -35,9 +36,9 @@ public class PersonController : MainController
         return Ok(await _mediator.Send(updateRequest));
     }
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll(GetAllPersonsRequest request)
     {
-        return Ok(_mapper.Map<List<GetPersonsResponse>>(await _personService.GetAllAsync()));
+        return Ok(await _mediator.Send(request));
     }
     [HttpGet("get-by-shortid")]
     public async Task<IActionResult> GetByShortId(string shortid)

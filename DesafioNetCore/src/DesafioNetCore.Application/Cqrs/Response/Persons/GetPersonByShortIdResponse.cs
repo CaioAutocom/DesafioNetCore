@@ -1,9 +1,8 @@
-﻿using DesafioNetCore.Domain.Entities;
-using MediatR;
+﻿using MediatR;
 
-namespace DesafioNetCore.Application.CQRS;
+namespace DesafioNetCore.Application.Cqrs;
 
-public class GetPersonsResponse : IRequest<Person>
+public class GetPersonByShortIdResponse : IRequest<GetPersonByShortIdResponse>
 {
     public string ShortId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
