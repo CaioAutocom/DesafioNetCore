@@ -2,7 +2,7 @@
 using DesafioNetCore.Infra.Repository.Contracts;
 using FluentValidation;
 
-namespace DesafioNetCore.Application.Validation;
+namespace DesafioNetCore.Application.Validation.Persons;
 
 public class CreatePersonValidator : AbstractValidator<CreatePersonRequest>
 {

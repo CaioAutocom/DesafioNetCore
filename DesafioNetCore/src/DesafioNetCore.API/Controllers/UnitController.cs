@@ -2,7 +2,6 @@
 using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Application.Cqrs;
 using DesafioNetCore.Application.CQRS;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,47 +14,26 @@ namespace DesafioNetCore.API.Controllers
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly IUnitService _unitService;
-        private readonly IValidator<Domain.Entities.Unit> _validator;
 
-        public UnitController(IMapper mapper, IMediator mediator, IUnitService unitService, IValidator<Domain.Entities.Unit> validator)
+        public UnitController(IMapper mapper, IMediator mediator, IUnitService unitService)
         {
             _mapper = mapper;
             _mediator = mediator;
             _unitService = unitService;
-            _validator = validator;
         }
-
 
         [HttpPost]
         [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
         public async Task<IActionResult> Add(CreateUnitRequest request)
         {
-            var validationResult = await _validator.ValidateAsync(_mapper.Map<Domain.Entities.Unit>(request));
-            
-            if (!validationResult.IsValid)
-            {
-                AddErrors(validationResult.Errors);
-                return CustomResponse(validationResult);
-            }
             return Ok(await _mediator.Send(request));
-            
         }
 
         [HttpPut]
         [Authorize(Roles = "ADMINISTRATOR, MANAGER")]
-        public async Task<IActionResult> UpdateUnit(string acronym, [FromBody] UpdateUnitRequest updateRequest)
+        public async Task<IActionResult> UpdateUnit(UpdateUnitRequest updateRequest)
         {
-            var validationResult = await _validator.ValidateAsync(_mapper.Map<Domain.Entities.Unit>(updateRequest));
-
-            if (!validationResult.IsValid)
-            {
-                AddErrors(validationResult.Errors);
-                return CustomResponse(validationResult);
-            }
-
-            var updateResponse = await _mediator.Send(updateRequest);
-
-            return Ok(updateResponse);
+            return Ok(await _mediator.Send(updateRequest));
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()

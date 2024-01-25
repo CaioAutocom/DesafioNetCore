@@ -5,7 +5,4 @@ namespace DesafioNetCore.Application.CQRS;
 
 public class DeletePersonRequest : DeleteRequest, IRequest<bool>
 {
-    public DeletePersonRequest()
-    {
-    }
 }

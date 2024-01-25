@@ -3,7 +3,7 @@ using DesafioNetCore.Infra.Repository.Contracts;
 using FluentValidation;
 using MediatR;
 
-namespace DesafioNetCore.Application.Validation;
+namespace DesafioNetCore.Application.Validation.CreateProductValidator;
 
 public class UpdateProductValidator : AbstractValidator<UpdateProductRequest>
 {

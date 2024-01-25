@@ -1,5 +1,4 @@
-﻿
-using DesafioNetCore.API.Services.Configuration;
+﻿using DesafioNetCore.API.Services.Configuration;
 using DesafioNetCore.Application.Validation;
 using FluentValidation;
 
@@ -15,7 +14,7 @@ public static class StartUp
         // utiliza as configurações de token
         services.AddJwtConfiguration(config);
 
-        services.AddValidatorsFromAssemblyContaining<UnitValidator>();
+        services.AddValidatorsFromAssemblyContaining<CreateUnitValidator>();
         return services;
     }
 }

@@ -17,10 +17,8 @@ public class UpdateUnitHandler : IRequestHandler<UpdateUnitRequest, UpdateUnitRe
 
     public async Task<UpdateUnitResponse> Handle(UpdateUnitRequest request, CancellationToken cancellationToken)
     {
-        var existingUnit = await _unitService.GetByAcronymAsync(request.Acronym);
+        var existingUnit = await _unitService.GetByShortIdAsync(request.ShortId) ?? throw new Exception("Something went wrong. There is no any register with the given request.");
 
-        if (existingUnit == null) throw new Exception("Something went wrong. There is no any register with the given request.");
-            
         // atualiza a unidade existente com a que veio no request
         _mapper.Map(request, existingUnit);
 

@@ -2,7 +2,7 @@
 using DesafioNetCore.Infra.Repository.Contracts;
 using FluentValidation;
 
-namespace DesafioNetCore.Application.Validation;
+namespace DesafioNetCore.Application.Validation.CreateProductValidator;
 
 public class CreateProductValidator : AbstractValidator<CreateProductRequest>
 {
@@ -19,7 +19,7 @@ public class CreateProductValidator : AbstractValidator<CreateProductRequest>
         RuleFor(x => x.BarCode)
             .NotNull().NotEmpty().WithMessage("BarCode must be given.")
             .MustAsync(BarCodeDoesNotExist).WithMessage("The given barcode its already taken on database.");
-       
+
         RuleFor(x => x.Acronym).NotEmpty().NotNull().WithMessage("Acronym must be given.")
             .MustAsync(AcronymExists).WithMessage("Acronym does not exists in database. You need to create one first and then a product.");
     }
