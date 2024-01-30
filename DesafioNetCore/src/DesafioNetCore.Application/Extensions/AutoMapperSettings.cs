@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Cqrs;
-using DesafioNetCore.Application.Cqrs.Request.Product;
 using DesafioNetCore.Domain.Entities;
 
 namespace DesafioNetCore.Application.Extensions
@@ -22,7 +21,12 @@ namespace DesafioNetCore.Application.Extensions
             CreateMap<Person, CreatePersonResponse>().ReverseMap();
             CreateMap<Person, UpdatePersonRequest>().ReverseMap();
             CreateMap<Person, UpdatePersonResponse>().ReverseMap();
-            CreateMap<Person, GetPersonsResponse>().ReverseMap();
+            CreateMap<Person, GetAllPersonsRequest>().ReverseMap();
+            CreateMap<Person, GetAllPersonsResponse>().ReverseMap();
+            CreateMap<Person, GetPersonByShortIdRequest>().ReverseMap();
+            CreateMap<Person, GetPersonByShortIdResponse>().ReverseMap();
+            CreateMap<Person, GetAllClientsResponse>().ReverseMap();
+            CreateMap<Person, GetAllClientsRequest>().ReverseMap();
             #endregion
 
             #region Products

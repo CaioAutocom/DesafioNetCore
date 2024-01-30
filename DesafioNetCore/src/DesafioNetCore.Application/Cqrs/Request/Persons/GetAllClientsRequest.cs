@@ -2,7 +2,7 @@
 
 namespace DesafioNetCore.Application.Cqrs;
 
-public class GetAllClientsRequest : IRequest<GetAllClientsResponse>
+public class GetAllClientsRequest : IRequest<IEnumerable<GetAllClientsResponse>>
 {
 
 }

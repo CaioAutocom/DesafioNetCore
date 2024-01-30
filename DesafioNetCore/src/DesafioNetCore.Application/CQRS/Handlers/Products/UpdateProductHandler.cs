@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Contracts;
-using DesafioNetCore.Application.Cqrs.Request.Product;
 using MediatR;
 
 namespace DesafioNetCore.Application.Cqrs;

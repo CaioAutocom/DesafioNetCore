@@ -35,20 +35,20 @@ public class PersonController : MainController
         return Ok(await _mediator.Send(updateRequest));
     }
     [HttpGet]
-    public async Task<IActionResult> GetAll(GetAllPersonsRequest request)
+    public async Task<IActionResult> GetAll()
     {
-        return Ok(await _mediator.Send(request));
+        return Ok(await _mediator.Send(new GetAllPersonsRequest()));
     }
     [HttpGet("get-by-shortid")]
     public async Task<IActionResult> GetByShortId(string shortid)
     {
-        return Ok(_mapper.Map<GetPersonByShortIdResponse>(await _personService.GetByShortIdAsync(shortid)));
+        return Ok(await _mediator.Send(new GetPersonByShortIdRequest { ShortId = shortid }));
     }
 
     [HttpGet("get-clients")]
     public async Task<IActionResult> GetClients()
     {
-        return Ok(_mapper.Map<List<GetAllClientsResponse>>(await _personService.GetClientsAsync()));
+        return Ok(await _mediator.Send(new GetAllClientsRequest()));
     }
     [HttpDelete]
     public async Task<IActionResult> DeleteById(DeletePersonRequest request)

@@ -15,8 +15,6 @@ public class GetAllPersonHandler : IRequestHandler<GetAllPersonsRequest, IEnumer
     }
     public async Task<IEnumerable<GetAllPersonsResponse>> Handle(GetAllPersonsRequest request, CancellationToken cancellationToken)
     {
-        return await _mapper.Map<IEnumerable<GetAllPersonsResponse>>(await _personService.GetAllAsync());
+        return _mapper.Map<IEnumerable<GetAllPersonsResponse>>(await _personService.GetAllAsync());
     }
-
-   
 }
