@@ -2,7 +2,7 @@
 using DesafioNetCore.Application.Cqrs;
 using MediatR;
 
-namespace DesafioNetCore.Application.CQRS;
+namespace DesafioNetCore.Application.Cqrs;
 
 public class DeleteProductHandler : IRequestHandler<DeleteProductRequest, bool>
 {

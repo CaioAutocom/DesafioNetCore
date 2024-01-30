@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DesafioNetCore.API.Extensions;
-using DesafioNetCore.Application.CQRS;
-using DesafioNetCore.Application.CQRS.Request.User;
+using DesafioNetCore.Application.Cqrs;
+using DesafioNetCore.Application.Cqrs.Request.User;
 using DesafioNetCore.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

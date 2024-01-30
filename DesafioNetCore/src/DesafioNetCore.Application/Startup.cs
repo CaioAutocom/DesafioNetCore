@@ -1,4 +1,4 @@
-﻿using DesafioNetCore.Application.CQRS.Handlers;
+﻿using DesafioNetCore.Application.Cqrs.Handlers;
 using DesafioNetCore.Application.Middleware;
 using DesafioNetCore.Application.Services;
 using Microsoft.AspNetCore.Builder;

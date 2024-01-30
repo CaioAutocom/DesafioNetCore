@@ -2,7 +2,7 @@
 using DesafioNetCore.Application.Contracts;
 using MediatR;
 
-namespace DesafioNetCore.Application.CQRS;
+namespace DesafioNetCore.Application.Cqrs;
 
 public class UpdateUnitHandler : IRequestHandler<UpdateUnitRequest, UpdateUnitResponse>
 {

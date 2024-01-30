@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.ComponentModel;
 
-namespace DesafioNetCore.Application.CQRS;
+namespace DesafioNetCore.Application.Cqrs;
 
 public class CreatePersonRequest : IRequest<CreatePersonResponse>
 {

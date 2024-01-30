@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Contracts;
-using DesafioNetCore.Application.CQRS;
+using DesafioNetCore.Application.Cqrs;
 using DesafioNetCore.Domain.Entities;
 using DesafioNetCore.Entities.Enums;
 using Microsoft.AspNetCore.Authorization;

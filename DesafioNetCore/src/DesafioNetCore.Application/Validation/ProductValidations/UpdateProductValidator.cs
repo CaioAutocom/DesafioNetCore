@@ -1,4 +1,4 @@
-﻿using DesafioNetCore.Application.CQRS.Request.Product;
+﻿using DesafioNetCore.Application.Cqrs.Request.Product;
 using DesafioNetCore.Infra.Repository.Contracts;
 using FluentValidation;
 using MediatR;

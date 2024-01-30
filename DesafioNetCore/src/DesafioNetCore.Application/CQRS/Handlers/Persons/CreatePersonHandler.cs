@@ -3,7 +3,7 @@ using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Domain.Entities;
 using MediatR;
 
-namespace DesafioNetCore.Application.CQRS.Handlers.Units;
+namespace DesafioNetCore.Application.Cqrs.Handlers.Units;
 
 public class CreatePersonHandler : IRequestHandler<CreatePersonRequest, CreatePersonResponse>
 {

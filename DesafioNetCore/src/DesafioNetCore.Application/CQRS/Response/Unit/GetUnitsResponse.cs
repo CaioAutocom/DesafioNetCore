@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace DesafioNetCore.Application.CQRS;
+namespace DesafioNetCore.Application.Cqrs;
 
 public class GetUnitsResponse : IRequest<Domain.Entities.Unit>
 {

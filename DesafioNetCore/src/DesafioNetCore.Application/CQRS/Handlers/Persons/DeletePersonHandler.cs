@@ -1,7 +1,7 @@
 ﻿using DesafioNetCore.Application.Contracts;
 using MediatR;
 
-namespace DesafioNetCore.Application.CQRS;
+namespace DesafioNetCore.Application.Cqrs;
 
 public class DeletePersonHandler : IRequestHandler<DeletePersonRequest, bool>
 {

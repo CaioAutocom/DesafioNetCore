@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Contracts;
 using DesafioNetCore.Application.Cqrs;
-using DesafioNetCore.Application.CQRS;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

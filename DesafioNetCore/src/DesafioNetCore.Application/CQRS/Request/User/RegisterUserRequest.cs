@@ -1,7 +1,7 @@
 ﻿using DesafioNetCore.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace DesafioNetCore.Application.CQRS;
+namespace DesafioNetCore.Application.Cqrs;
 
 public class RegisterUserRequest
 {

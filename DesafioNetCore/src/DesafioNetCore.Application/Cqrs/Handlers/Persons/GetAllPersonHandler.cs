@@ -4,7 +4,7 @@ using MediatR;
 
 namespace DesafioNetCore.Application.Cqrs;
 
-public class GetAllPersonHandler : IRequestHandler<GetAllPersonsRequest, GetAllPersonsResponse>
+public class GetAllPersonHandler : IRequestHandler<GetAllPersonsRequest, IEnumerable<GetAllPersonsResponse>>
 {
     private readonly IPersonService _personService;
     private readonly IMapper _mapper;
@@ -17,4 +17,6 @@ public class GetAllPersonHandler : IRequestHandler<GetAllPersonsRequest, GetAllP
     {
         return await _mapper.Map<IEnumerable<GetAllPersonsResponse>>(await _personService.GetAllAsync());
     }
+
+   
 }

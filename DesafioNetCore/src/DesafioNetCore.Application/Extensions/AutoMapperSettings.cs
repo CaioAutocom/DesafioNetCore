@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using DesafioNetCore.Application.CQRS;
-using DesafioNetCore.Application.CQRS.Request.Product;
+using DesafioNetCore.Application.Cqrs;
+using DesafioNetCore.Application.Cqrs.Request.Product;
 using DesafioNetCore.Domain.Entities;
 
 namespace DesafioNetCore.Application.Extensions

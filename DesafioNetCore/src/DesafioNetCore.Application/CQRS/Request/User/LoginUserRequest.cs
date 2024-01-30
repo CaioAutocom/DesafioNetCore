@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DesafioNetCore.Application.CQRS.Request.User;
+namespace DesafioNetCore.Application.Cqrs.Request.User;
 
 public class LoginUserRequest
 {

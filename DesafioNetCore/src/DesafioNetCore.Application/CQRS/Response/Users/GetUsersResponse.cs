@@ -1,7 +1,7 @@
 ﻿using DesafioNetCore.Domain.Entities;
 using MediatR;
 
-namespace DesafioNetCore.Application.CQRS;
+namespace DesafioNetCore.Application.Cqrs;
 
 public class GetUsersResponse : IRequest<User>
 {

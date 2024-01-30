@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using DesafioNetCore.Application.Contracts;
-using DesafioNetCore.Application.CQRS.Request.Product;
+using DesafioNetCore.Application.Cqrs.Request.Product;
 using MediatR;
 
-namespace DesafioNetCore.Application.CQRS;
+namespace DesafioNetCore.Application.Cqrs;
 
 public class UpdateProductHandle : IRequestHandler<UpdateProductRequest, UpdateProductResponse>
 {

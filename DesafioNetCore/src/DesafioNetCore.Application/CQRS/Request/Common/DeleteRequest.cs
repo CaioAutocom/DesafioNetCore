@@ -1,4 +1,4 @@
-﻿namespace DesafioNetCore.Application.CQRS;
+﻿namespace DesafioNetCore.Application;
 
 public abstract class DeleteRequest 
 {
