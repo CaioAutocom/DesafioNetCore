@@ -1,4 +1,5 @@
 using DesafioNetCore.API;
+using DesafioNetCore.API.Views;
 using DesafioNetCore.Application;
 using DesafioNetCore.Infra;
 using DesafioNetCore.Infra.Migrations;
@@ -14,18 +15,24 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddApiServices(builder.Configuration);
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
+
 }
 
 app.UseHttpsRedirection();
+
+app.ConfigureApiServices();
 // Utilizando o Identity para autenticar
 app.UseAuthentication();
 app.UseAuthorization();
@@ -33,6 +40,7 @@ app.UseAuthorization();
 app.UseExceptionMiddleware();
 
 app.MapControllers();
+app.UseMapRoutes();
 
 DbMigrationHelpers.EnsureSeedData(app).Wait();
 
