@@ -15,6 +15,17 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddApiServices(builder.Configuration);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+//teste liberar comunicação com o front
+builder.Services.AddCors(options => {
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(["http://localhost:5440/"]);
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowCredentials();
+        policy.SetIsOriginAllowed(_ => true);
+    });
+});
 
 var app = builder.Build();
 
@@ -24,8 +35,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
+app.UseCors();
+// foi recomendado desabilitar o httpsredirection para evitar bug, isso na video aula do clone do whatsapp
+//app.UseHttpsRedirection();
 // Utilizando o Identity para autenticar
 app.UseAuthentication();
 app.UseAuthorization();
