@@ -76,7 +76,11 @@ namespace DesafioNetCore.API.Controllers.Auth
             {
                 return CustomResponse(await CreateJwt(loginUser.Email));
             }
-
+            if (result.IsLockedOut)
+            {
+                AddErrors("Blocked by many unsuccessful tries. Try again later.");
+                return CustomResponse();
+            }
             AddErrors("Wrong user or password");
             return CustomResponse();
         }
